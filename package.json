@@ -6,7 +6,13 @@
     "start": "node node_modules/react-native/local-cli/cli.js start"
   },
   "dependencies": {
+    "flux": "^2.1.1",
+    "immutable": "^3.8.1",
     "react": "15.0.2",
     "react-native": "0.26.3"
+  },
+  "devDependencies": {
+    "eslint": "^2.11.1",
+    "eslint-plugin-react": "^5.1.1"
   }
 }
