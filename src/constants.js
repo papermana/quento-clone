@@ -6,6 +6,7 @@ const Immutable = require('immutable');
 
 
 const constants = {
+  STATUSBAR_HEIGHT: 24,
   PROPTYPES: {
     // StyleSheet.create returns id as a number:
     STYLE: React.PropTypes.oneOfType([
@@ -34,6 +35,7 @@ constants.STYLES = StyleSheet.create({
   },
   SCENE_CONTAINER: {
     flex: 1,
+    paddingTop: constants.STATUSBAR_HEIGHT,
     backgroundColor: constants.BACKGROUND_COLOR,
   },
 });

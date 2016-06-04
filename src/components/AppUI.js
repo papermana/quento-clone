@@ -2,6 +2,7 @@ const React = require('react');
 const {
   Animated,
   BackAndroid,
+  StatusBar,
   View,
 } = require('react-native');
 const Immutable = require('immutable');
@@ -91,6 +92,10 @@ class AppUI extends React.Component {
 
     return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]}
       onLayout={this.onLayoutFunc.bind(this)} >
+      <StatusBar
+        backgroundColor="rgba(0,0,0,0.4)"
+        translucent />
+
       {
         PreviousView &&
         <View style={styles.view} >
