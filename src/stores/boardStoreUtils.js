@@ -77,11 +77,11 @@ function generateAnswers({boardLayout, length, seed, numberOfAnswers}) {
   while (i < numberOfAnswers) {
     const answer = generateOneAnswer();
 
-    if (answer.get('sum') < 1) {
+    if (answer.sum < 1) {
       continue;
     }
 
-    if (answers.find(a => a.get('sum') === answer.get('sum'))) {
+    if (answers.find(a => a.sum === answer.sum)) {
       continue;
     }
 
@@ -128,10 +128,10 @@ function generateAnswers({boardLayout, length, seed, numberOfAnswers}) {
       i++;
     }
 
-    return Immutable.fromJS({
+    return {
       path,
       sum: makeSumForAnswer(path),
-    });
+    };
   }
 
   function makeSumForAnswer(path) {
