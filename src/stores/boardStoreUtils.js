@@ -50,17 +50,17 @@ function generateBoardLayout(seed) {
   })();
 
   return Immutable.fromJS([
-    numbers.unshift(),
-    operators.unshift(),
-    numbers.unshift(),
+    numbers.shift(),
+    operators.shift(),
+    numbers.shift(),
 
-    operators.unshift(),
-    numbers.unshift(),
-    operators.unshift(),
+    operators.shift(),
+    numbers.shift(),
+    operators.shift(),
 
-    numbers.unshift(),
-    operators.unshift(),
-    numbers.unshift(),
+    numbers.shift(),
+    operators.shift(),
+    numbers.shift(),
   ]);
 }
 
@@ -77,7 +77,11 @@ function generateAnswers({boardLayout, length, seed, numberOfAnswers}) {
   while (i < numberOfAnswers) {
     const answer = generateOneAnswer();
 
-    if (answers.find(a => a.equals(answer))) {
+    if (answer.get('sum') < 1) {
+      continue;
+    }
+
+    if (answers.find(a => a.get('sum') === answer.get('sum'))) {
       continue;
     }
 
@@ -124,7 +128,57 @@ function generateAnswers({boardLayout, length, seed, numberOfAnswers}) {
       i++;
     }
 
-    return Immutable.fromJS(path);
+    return Immutable.fromJS({
+      path,
+      sum: makeSumForAnswer(path),
+    });
+  }
+
+  function makeSumForAnswer(path) {
+    path = path.slice();
+
+    const length = path.length;
+    let sum = 0;
+    let num1;
+    let num2;
+    let operator;
+
+    for (let i = 0; i < length - 1; i++) {
+      if (!num1) {
+        num1 = path.shift();
+
+        continue;
+      }
+      else if (!operator) {
+        operator = path.shift();
+
+        continue;
+      }
+      else if (!num2) {
+        num2 = path.shift();
+
+        if (operator === '+') {
+          sum += add(num1, num2);
+        }
+        else if (operator === '-') {
+          sum += subtract(num1, num2);
+        }
+
+        num1 = sum;
+
+        num2 = operator = undefined;
+      }
+    }
+
+    return sum;
+
+    function add(num1, num2) {
+      return num1 + num2;
+    }
+
+    function subtract(num1, num2) {
+      return num1 - num2;
+    }
   }
 }
 
