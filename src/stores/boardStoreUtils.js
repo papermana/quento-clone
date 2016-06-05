@@ -224,14 +224,35 @@ const Random = require('random-js');
 */
 
 
+function isNumber(value) {
+  // Polyfill for Number.isInteger:
+  return (
+    typeof value === 'number' &&
+    isFinite(value) &&
+    Math.floor(value) === value
+  );
+}
+
+function isOperator(value) {
+  return value === '+' || value === '-';
+}
+
+
 function generateBoardLayout(random) {
   const r = random || new Random();
 
   const operators = ['+', '-', '-', '+'];
   const numbers = [];
+  let i = 0;
 
-  for (let i = 0; i < 5; i++) {
-    numbers.push(r.integer(0, 9));
+  while (i < 5) {
+    const newNumber = r.integer(0, 9);
+
+    if (numbers.indexOf(newNumber) === -1) {
+      numbers.push(newNumber);
+
+      i++;
+    }
   }
 
   return Immutable.fromJS([
@@ -249,6 +270,78 @@ function generateBoardLayout(random) {
   ]);
 }
 
+function generateSolutions(boardLayout, random) {
+  const r = random || new Random();
+
+  /*  Lengths are:
+      - 3 for 2 numbers and 1 operator,
+      - 5 for 3 numbers and 2 operators.
+  */
+  const solutions = {
+    length2: [],
+    length3: [],
+  };
+
+  for (let i = 0; i < 3; i++) {
+    solutions.length2.push(generateOneSolution(3));
+    solutions.length3.push(generateOneSolution(5));
+  }
+
+  return Immutable.fromJS(solutions);
+
+  function generateOneSolution(length) {
+    const path = generatePath(length);
+
+    console.log(path.map(x => boardLayout.get(x)));
+
+    return {
+      sum: 0,
+      path,
+    };
+  }
+
+  function generatePath(length) {
+    const path = [];
+    const startingPoint = r.pick([0, 2, 4, 6, 8]);
+
+    path.push(startingPoint);
+
+    let i = 0;
+
+    while (i < length - 1) {
+      const move = r.pick([-1, 1, -3, 3]);
+      const currentPosition = path[path.length - 1];
+      const nextPosition = currentPosition + move;
+      const currentValue = boardLayout.get(currentPosition);
+      const nextValue = boardLayout.get(nextPosition);
+
+      // Check whether the next field even exists:
+      if (!nextValue) {
+        continue;
+      }
+
+      // Don't visit already visited fields:
+      if (path.find(id => id === nextPosition)) {
+        continue;
+      }
+
+      // Don't visit two numbers or two operators in a row:
+      if (
+        (isNumber(currentValue) && isNumber(nextValue)) ||
+        (isOperator(currentValue) && isOperator(nextValue))
+      ) {
+        continue;
+      }
+
+      path.push(nextPosition);
+
+      i++;
+    }
+
+    return path;
+  }
+}
+
 function createNewBoard(seed) {
   let random;
 
@@ -257,14 +350,11 @@ function createNewBoard(seed) {
   }
 
   const boardLayout = generateBoardLayout(random);
-  const answersLength2 = {};
-  const answersLength3 = {};
-
+  const solutions = generateSolutions(boardLayout, random);
 
   return Immutable.fromJS({
     boardLayout,
-    answersLength2,
-    answersLength3,
+    solutions,
   });
 }
 
