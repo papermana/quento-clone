@@ -3,7 +3,8 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "test": "jest"
   },
   "dependencies": {
     "flux": "^2.1.1",
@@ -13,7 +14,13 @@
     "react-native": "0.26.3"
   },
   "devDependencies": {
+    "babel-jest": "^12.1.0",
+    "babel-polyfill": "^6.9.1",
+    "babel-preset-es2015": "^6.9.0",
+    "babel-preset-react": "^6.5.0",
     "eslint": "^2.11.1",
-    "eslint-plugin-react": "^5.1.1"
+    "eslint-plugin-jasmine": "^1.8.1",
+    "eslint-plugin-react": "^5.1.1",
+    "jest-cli": "^12.1.1"
   }
 }

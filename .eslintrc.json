@@ -2,7 +2,9 @@
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "jest": true,
+    "jasmine": true
   },
   "extends": "eslint:recommended",
   "parserOptions": {
@@ -13,7 +15,8 @@
     "sourceType": "module"
   },
   "plugins": [
-    "react"
+    "react",
+    "jasmine"
   ],
   "rules": {
     "indent": [2, 2],
