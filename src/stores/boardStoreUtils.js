@@ -278,67 +278,140 @@ function generateSolutions(boardLayout, random) {
       - 5 for 3 numbers and 2 operators.
   */
   const solutions = {
-    length2: [],
-    length3: [],
+    length2: generateSolutionsOfGivenLength(3, boardLayout, r),
+    length3: generateSolutionsOfGivenLength(5, boardLayout, r),
   };
 
-  for (let i = 0; i < 3; i++) {
-    solutions.length2.push(generateOneSolution(3));
-    solutions.length3.push(generateOneSolution(5));
-  }
-
   return Immutable.fromJS(solutions);
+}
 
-  function generateOneSolution(length) {
-    const path = generatePath(length);
+function generateSolutionsOfGivenLength(length, boardLayout, r) {
+  const solutions = [];
+  let i = 0;
 
-    console.log(path.map(x => boardLayout.get(x)));
+  while (i < 3) {
+    const solution = generateOneSolution(length, boardLayout, r);
 
-    return {
-      sum: 0,
-      path,
-    };
+    solutions.push(solution);
+
+    i++;
   }
 
-  function generatePath(length) {
-    const path = [];
-    const startingPoint = r.pick([0, 2, 4, 6, 8]);
+  return solutions;
+}
 
-    path.push(startingPoint);
+function generateOneSolution(length, boardLayout, r) {
+  // const path = generatePath(length, boardLayout, r);
+  const path = new Array(length);
 
-    let i = 0;
+  // console.log(path.map(x => boardLayout.get(x)));
 
-    while (i < length - 1) {
-      const move = r.pick([-1, 1, -3, 3]);
-      const currentPosition = path[path.length - 1];
-      const nextPosition = currentPosition + move;
-      const currentValue = boardLayout.get(currentPosition);
-      const nextValue = boardLayout.get(nextPosition);
+  return {
+    sum: 0,
+    path,
+  };
+}
 
-      // Check whether the next field even exists:
-      if (!nextValue) {
-        continue;
-      }
+function generatePath(length, boardLayout, r) {
+  const path = [];
+  const startingPoint = r.pick([0, 2, 4, 6, 8]);
 
-      // Don't visit already visited fields:
-      if (path.find(id => id === nextPosition)) {
-        continue;
-      }
+  path.push(startingPoint);
 
-      // Don't visit two numbers or two operators in a row:
-      if (
-        (isNumber(currentValue) && isNumber(nextValue)) ||
-        (isOperator(currentValue) && isOperator(nextValue))
-      ) {
-        continue;
-      }
+  let i = 0;
 
-      path.push(nextPosition);
+  while (i < length) {
+    const move = r.pick([-1, 1, -3, 3]);
+    const currentPosition = path[path.length - 1];
+    const nextPosition = currentPosition + move;
+    const currentValue = boardLayout.get(currentPosition);
+    const nextValue = boardLayout.get(nextPosition);
 
-      i++;
+    // Check whether the next field even exists:
+    if (!nextValue) {
+      continue;
     }
 
-    return path;
+    // Don't visit already visited fields:
+    if (path.find(id => id === nextPosition)) {
+      continue;
+    }
+
+    // Don't visit two numbers or two operators in a row:
+    if (
+      (isNumber(currentValue) && isNumber(nextValue)) ||
+      (isOperator(currentValue) && isOperator(nextValue))
+    ) {
+      continue;
+    }
+
+    path.push(nextPosition);
+
+    i++;
+  }
+
+  return path;
+}
+
+function generateSum(path) {
+  path = path.slice();
+
+  const length = path.length;
+  let sum = 0;
+  let number1;
+  let operator;
+  let number2;
+
+  for (let i = 0; i < length; i++) {
+    if (!number1) {
+      number1 = path.shift();
+
+      if (!isNumber(number1)) {
+        throwError();
+
+        return 0;
+      }
+    }
+    else if (!operator) {
+      operator = path.shift();
+
+      if (!isOperator(operator)) {
+        throwError();
+
+        return 0;
+      }
+    }
+    else if (!number2) {
+      number2 = path.shift();
+
+      if (!isNumber(number2)) {
+        throwError();
+
+        return 0;
+      }
+
+      const func = operator === '+' ? add : subtract;
+
+      sum = func(number1, number2);
+
+      number1 = sum;
+
+      number2 = operator = undefined;
+    }
+  }
+
+  return sum;
+
+  function add(n1, n2) {
+    return n1 + n2;
+  }
+
+  function subtract(n1, n2) {
+    return n1 - n2;
+  }
+
+  function throwError() {
+    throw new Error('Invalid path!');
   }
 }
 
@@ -361,6 +434,7 @@ function createNewBoard(seed) {
 
 module.exports = {
   createNewBoard,
+  generateSum,
   __testing: {
     generateBoardLayout,
   },

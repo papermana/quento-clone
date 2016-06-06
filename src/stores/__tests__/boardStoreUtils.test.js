@@ -76,25 +76,36 @@ describe('A set of utility functions for the BoardStore', () => {
     });
 
     describe('An object containing solutions for the board that serve as challenges to the player', () => {
-      it('should be an `Immutable.Map` containing properties called `length2` and `length3`; each of those should be an `Immutable.List` containing `Immutable.Map` objects having a `sum` property, which is an integer, and a `path` property, which is an `Immutable.List` of a `size` indicated by the name of the `lengthX` parent property', () => {
+      it('should be an `Immutable.Map` containing properties called `length2` and `length3`; each of those should be an `Immutable.List` containing 3 `Immutable.Map` objects having a `sum` property, which is an integer, and a `path` property, which is an `Immutable.List` of a `size` indicated by the name of the `lengthX` parent property', () => {
         const result = boardStoreUtils.createNewBoard();
         const solutions = result.get('solutions');
-        const length2 = solutions.get('length2');
-        const length3 = solutions.get('length3');
 
         expect(Immutable.Map.isMap(solutions)).toBe(true);
 
+        /*
+          solutions: {
+            length2: [solution, solution, solution],
+            length3: [solution, solution, solution],
+          }
+
+          solution: {
+            sum: number,
+            path: [...],
+          }
+        */
+
         [{
-          ref: length2,
+          ref: solutions.get('length2'),
           size: 3,
         },
         {
-          ref: length3,
+          ref: solutions.get('length3'),
           size: 5,
         }]
         .forEach(({ref, size}) => {
           expect(ref).toBeDefined();
           expect(Immutable.List.isList(ref)).toBe(true);
+          expect(ref.size).toBe(3);
 
           ref.forEach(solution => forEachSolution(solution, size));
         });
@@ -113,6 +124,21 @@ describe('A set of utility functions for the BoardStore', () => {
       });
     });
 
+  });
+
+  describe('A function that sums values located in a path', () => {
+    it('should accept an array of numbers and strings "+" and "-", and return a sum of those values', () => {
+      const sumFunc = boardStoreUtils.generateSum;
+      const path1 = [1, '+', 1];
+      const path2 = [2, '-', 3];
+      const path3 = [4, '+', 5, '-', 6];
+      const path4 = [1, '+', 2, '+', 3, '-', 4, '-', 5];
+
+      expect(sumFunc(path1)).toBe(2);
+      expect(sumFunc(path2)).toBe(-1);
+      expect(sumFunc(path3)).toBe(3);
+      expect(sumFunc(path4)).toBe(-3);
+    });
   });
 
 });
