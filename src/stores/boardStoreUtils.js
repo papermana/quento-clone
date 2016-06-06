@@ -246,7 +246,7 @@ function generateBoardLayout(random) {
   let i = 0;
 
   while (i < 5) {
-    const newNumber = r.integer(0, 9);
+    const newNumber = r.integer(1, 9);
 
     if (numbers.indexOf(newNumber) === -1) {
       numbers.push(newNumber);
@@ -292,6 +292,18 @@ function generateSolutionsOfGivenLength(length, boardLayout, r) {
   while (i < 3) {
     const solution = generateOneSolution(length, boardLayout, r);
 
+    // No repeating solutions:
+    if (
+      solutions.some(sol => sol.sum === solution.sum)
+    ) {
+      continue;
+    }
+
+    // All solutions must have a sum of 1 or more:
+    if (solution.sum <= 0) {
+      continue;
+    }
+
     solutions.push(solution);
 
     i++;
@@ -301,13 +313,10 @@ function generateSolutionsOfGivenLength(length, boardLayout, r) {
 }
 
 function generateOneSolution(length, boardLayout, r) {
-  // const path = generatePath(length, boardLayout, r);
-  const path = new Array(length);
-
-  // console.log(path.map(x => boardLayout.get(x)));
+  const path = generatePath(length, boardLayout, r);
 
   return {
-    sum: 0,
+    sum: generateSum(path.map(position => boardLayout.get(position))),
     path,
   };
 }
@@ -320,15 +329,15 @@ function generatePath(length, boardLayout, r) {
 
   let i = 0;
 
-  while (i < length) {
+  while (i < length - 1) {
     const move = r.pick([-1, 1, -3, 3]);
     const currentPosition = path[path.length - 1];
     const nextPosition = currentPosition + move;
     const currentValue = boardLayout.get(currentPosition);
     const nextValue = boardLayout.get(nextPosition);
 
-    // Check whether the next field even exists:
-    if (!nextValue) {
+    // Since the board is 3x3, only positions 0-8 are accepted:
+    if (nextPosition < 0 || nextPosition > 8) {
       continue;
     }
 
@@ -411,7 +420,7 @@ function generateSum(path) {
   }
 
   function throwError() {
-    throw new Error('Invalid path!');
+    throw new Error('Invalid path!\n' + path);
   }
 }
 

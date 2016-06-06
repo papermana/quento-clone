@@ -122,6 +122,36 @@ describe('A set of utility functions for the BoardStore', () => {
           expect(path.size).toBe(size);
         }
       });
+
+      it('should have a `path` property, which should start and end with a number, and use a number for all even indices and an operator for uneven ones', () => {
+        const result = boardStoreUtils.createNewBoard();
+        const boardLayout = result.get('boardLayout');
+        const solutions = result.get('solutions');
+
+        [
+          solutions.get('length2'),
+          solutions.get('length3'),
+        ]
+        .forEach(length => {
+          length.forEach(solution => {
+            const path = solution.get('path');
+
+            expect(Number.isInteger(path.get(0))).toBe(true);
+            expect(Number.isInteger(path.get(path.size - 1))).toBe(true);
+
+            path.forEach((value, key) => {
+              value = boardLayout.get(value);
+
+              if (key % 2 === 0) {
+                expect(Number.isInteger(value)).toBe(true);
+              }
+              else {
+                expect(value === '+' || value === '-').toBe(true);
+              }
+            });
+          });
+        });
+      });
     });
 
   });
