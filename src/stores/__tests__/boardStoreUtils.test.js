@@ -117,6 +117,7 @@ describe('A set of utility functions for the BoardStore', () => {
           expect(Immutable.Map.isMap(solution)).toBe(true);
           expect(sum).toBeDefined();
           expect(Number.isInteger(sum)).toBe(true);
+          expect(sum > 0).toBe(true);
           expect(path).toBeDefined();
           expect(Immutable.List.isList(path)).toBe(true);
           expect(path.size).toBe(size);
