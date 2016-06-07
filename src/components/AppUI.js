@@ -7,6 +7,7 @@ const {
 } = require('react-native');
 const Immutable = require('immutable');
 const consts = require('@src/constants');
+const actionCreators = require('@src/actionCreators');
 
 
 class AppUI extends React.Component {
@@ -86,9 +87,9 @@ class AppUI extends React.Component {
     const CurrentView = this.props.model.state && this.props.model.state.get('navStack').last();
     let PreviousView;
 
-    if (this.props.model.state.get('navStack').size > 1) {
-      PreviousView = this.props.model.state.get('navStack').pop().last();
-    }
+    // if (this.props.model.state.get('navStack').size > 1) {
+    //   PreviousView = this.props.model.state.get('navStack').pop().last();
+    // }
 
     return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]}
       onLayout={this.onLayoutFunc.bind(this)} >

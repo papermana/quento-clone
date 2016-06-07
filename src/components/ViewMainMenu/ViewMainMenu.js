@@ -6,6 +6,7 @@ const {
   View,
 } = require('react-native');
 const consts = require('@src/constants');
+const actionCreators = require('@src/actionCreators');
 
 
 class ViewMainMenu extends React.Component {
@@ -13,28 +14,33 @@ class ViewMainMenu extends React.Component {
     super(props);
   }
 
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.nextState) {
+      actionCreators.endTransition();
+    }
+  }
+
   render() {
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
-      <View style={styles.innerWrapper} >
 
-        <View style={styles.logoWrapper} >
-          <Text style={styles.logoText} >
-            {'Quento\nClone'}
+      <View style={styles.logoWrapper} >
+        <Text style={styles.logoText} >
+          {'Quento\nClone'}
+        </Text>
+      </View>
+
+      <View style={styles.spacing} />
+
+      <TouchableOpacity style={styles.playButton}
+        activeOpacity={0.5}
+        onPress={() => actionCreators.playTheGame()} >
+        <View>
+          <Text style={styles.playText} >
+            Press to play
           </Text>
         </View>
+      </TouchableOpacity>
 
-        <View style={styles.spacing} />
-
-        <TouchableOpacity style={styles.playButton}
-          activeOpacity={0.5} >
-          <View>
-            <Text style={styles.playText} >
-              Press to play
-            </Text>
-          </View>
-        </TouchableOpacity>
-
-      </View>
     </View>;
   }
 }

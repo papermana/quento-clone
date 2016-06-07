@@ -16,8 +16,13 @@ function goBack(state) {
 }
 
 function goTo(state, view) {
-  return state
-  .set('nextState', routes[view]);
+  if (state.get('navStack').last().name === view) {
+    return state;
+  }
+  else {
+    return state
+    .set('nextState', routes[view]);
+  }
 }
 
 function endTransition(state) {
@@ -65,6 +70,9 @@ class StateStore extends ReduceStore {
     }
     else if (action.type === 'endTransition') {
       return endTransition(state);
+    }
+    else if (action.type === 'playTheGame') {
+      return goTo(state, 'ViewPlayGame');
     }
     else {
       return state;

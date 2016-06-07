@@ -15,7 +15,9 @@ function createAction(name) {
 const actionCreators = {};
 
 [
-
+  'goBack',
+  'endTransition',
+  'playTheGame',
 ]
 .forEach(string => createAction(string));
 

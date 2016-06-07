@@ -4,6 +4,7 @@ const {
 } = require('flux/utils');
 const AppUI = require('@components/AppUI');
 const StateStore = require('@stores/stateStore');
+const BoardStore = require('@stores/boardStore');
 
 
 function isStoreReady(store, property) {
@@ -26,12 +27,14 @@ class AppContainer extends React.Component {
   static getStores() {
     return [
       StateStore,
+      BoardStore,
     ];
   }
 
   static calculateState(prevState) {
     return {
       state: isStoreReady(StateStore),
+      board: isStoreReady(BoardStore),
     };
   }
 
