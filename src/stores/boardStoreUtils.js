@@ -66,23 +66,26 @@ function generateBoardLayout(random) {
   ]);
 }
 
-function generateSolutions(boardLayout, random) {
+function generateChallenges(boardLayout, random) {
   const r = random || new Random();
 
   /*  Lengths are:
       - 3 for 2 numbers and 1 operator,
       - 5 for 3 numbers and 2 operators.
   */
-  const solutions = {
-    length2: generateSolutionsOfGivenLength(3, boardLayout, r),
-    length3: generateSolutionsOfGivenLength(5, boardLayout, r),
-  };
+  const challenges = [
+    generateSolutions(3, boardLayout, r),
+    generateSolutions(5, boardLayout, r),
+  ];
 
-  return Immutable.fromJS(solutions);
+  return Immutable.fromJS(challenges);
 }
 
-function generateSolutionsOfGivenLength(length, boardLayout, r) {
-  const solutions = [];
+function generateSolutions(length, boardLayout, r) {
+  const result = {
+    length,
+    solutions: [],
+  };
   let i = 0;
 
   while (i < 3) {
@@ -90,7 +93,7 @@ function generateSolutionsOfGivenLength(length, boardLayout, r) {
 
     // No repeating solutions:
     if (
-      solutions.some(sol => sol.sum === solution.sum)
+      result.solutions.some(sol => sol.sum === solution.sum)
     ) {
       continue;
     }
@@ -100,12 +103,12 @@ function generateSolutionsOfGivenLength(length, boardLayout, r) {
       continue;
     }
 
-    solutions.push(solution);
+    result.solutions.push(solution);
 
     i++;
   }
 
-  return solutions;
+  return result;
 }
 
 function generateOneSolution(length, boardLayout, r) {
@@ -252,11 +255,11 @@ function createNewBoard(seed) {
   }
 
   const boardLayout = generateBoardLayout(random);
-  const solutions = generateSolutions(boardLayout, random);
+  const challenges = generateChallenges(boardLayout, random);
 
   return Immutable.fromJS({
     boardLayout,
-    solutions,
+    challenges,
   });
 }
 

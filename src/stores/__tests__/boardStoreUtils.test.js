@@ -8,12 +8,12 @@ const boardStoreUtils = require('@stores/boardStoreUtils');
 describe('A set of utility functions for the BoardStore', () => {
 
   describe('A function which generates a board layout together with a set of solutions for it', () => {
-    it('should create a new `Immutable.js` object containing a `boardLayout` and `solutions` properties', () => {
+    it('should create a new `Immutable.js` object containing a `boardLayout` and `challenges` properties', () => {
       const result = boardStoreUtils.createNewBoard();
 
       expect(Immutable.Map.isMap(result)).toBe(true);
       expect(result.get('boardLayout')).toBeDefined();
-      expect(result.get('solutions')).toBeDefined();
+      expect(result.get('challenges')).toBeDefined();
     });
 
     describe('An object which contains a layout for the board', () => {
@@ -76,17 +76,20 @@ describe('A set of utility functions for the BoardStore', () => {
     });
 
     describe('An object containing solutions for the board that serve as challenges to the player', () => {
-      it('should be an `Immutable.Map` containing properties called `length2` and `length3`; each of those should be an `Immutable.List` containing 3 `Immutable.Map` objects having a `sum` property, which is an integer, and a `path` property, which is an `Immutable.List` of a `size` indicated by the name of the `lengthX` parent property', () => {
+      it('should be an `Immutable.List` containing a number of `Immutable.Map` objects, each with a `length` property, which is numerical, and a `solutions` property, which is another `Immutable.List`; the `solutions` property contains 3 `Immutable.Map` objects having a `sum` property, which is an integer, and a `path` property, which is an `Immutable.List` of a `size` indicated by the aforementioned `length` property', () => {
         const result = boardStoreUtils.createNewBoard();
-        const solutions = result.get('solutions');
+        const challenges = result.get('challenges');
 
-        expect(Immutable.Map.isMap(solutions)).toBe(true);
+        expect(Immutable.List.isList(challenges)).toBe(true);
 
         /*
-          solutions: {
-            length2: [solution, solution, solution],
-            length3: [solution, solution, solution],
-          }
+          challenges: [
+            {
+              length: number,
+              solutions: [solution, solution, solution],
+            },
+            ...
+          ]
 
           solution: {
             sum: number,
@@ -94,20 +97,21 @@ describe('A set of utility functions for the BoardStore', () => {
           }
         */
 
-        [{
-          ref: solutions.get('length2'),
-          size: 3,
-        },
-        {
-          ref: solutions.get('length3'),
-          size: 5,
-        }]
-        .forEach(({ref, size}) => {
-          expect(ref).toBeDefined();
-          expect(Immutable.List.isList(ref)).toBe(true);
-          expect(ref.size).toBe(3);
+        challenges.forEach(challenge => {
+          const length = challenge.get('length');
+          const solutions = challenge.get('solutions');
 
-          ref.forEach(solution => forEachSolution(solution, size));
+          expect(challenge).toBeDefined();
+          expect(Immutable.Map.isMap(challenge)).toBe(true);
+
+          expect(length).toBeDefined();
+          expect(Number.isInteger(length)).toBe(true);
+
+          expect(solutions).toBeDefined();
+          expect(Immutable.List.isList(solutions)).toBe(true);
+          expect(solutions.size).toBe(3);
+
+          solutions.forEach(solution => forEachSolution(solution, length));
         });
 
         function forEachSolution(solution, size) {
@@ -127,14 +131,10 @@ describe('A set of utility functions for the BoardStore', () => {
       it('should have a `path` property, which should start and end with a number, and use a number for all even indices and an operator for uneven ones', () => {
         const result = boardStoreUtils.createNewBoard();
         const boardLayout = result.get('boardLayout');
-        const solutions = result.get('solutions');
+        const challenges = result.get('challenges');
 
-        [
-          solutions.get('length2'),
-          solutions.get('length3'),
-        ]
-        .forEach(length => {
-          length.forEach(solution => {
+        challenges.forEach(challenge => {
+          challenge.get('solutions').forEach(solution => {
             const path = solution.get('path');
 
             expect(Number.isInteger(path.get(0))).toBe(true);
