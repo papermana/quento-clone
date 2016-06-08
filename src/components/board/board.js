@@ -43,7 +43,7 @@ class Board extends React.Component {
   }
 
   render() {
-    const tiles = this.props.model.board.get('boardLayout')
+    const tiles = this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .map((value, key) => <BoardTile key={key} >{value}</BoardTile>);
     // const rows = tiles.forEach((value, key) => {
     //   const position = Math.floor(key / 3);

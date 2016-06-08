@@ -5,9 +5,15 @@ const {
 const Immutable = require('immutable');
 
 
+const IMMUTABLE_OBJECT = React.PropTypes.instanceOf(Immutable.Map);
+
 const constants = {
   STATUSBAR_HEIGHT: 24,
   PROPTYPES: {
+    MODEL: React.PropTypes.shape({
+      state: IMMUTABLE_OBJECT,
+      board: IMMUTABLE_OBJECT,
+    }),
     // StyleSheet.create returns id as a number:
     STYLE: React.PropTypes.oneOfType([
       React.PropTypes.array,
@@ -18,7 +24,7 @@ const constants = {
       React.PropTypes.arrayOf(React.PropTypes.node),
       React.PropTypes.node,
     ]),
-    IMMUTABLE_OBJECT: React.PropTypes.instanceOf(Immutable.Map),
+    IMMUTABLE_OBJECT,
     ROUTE: React.PropTypes.shape({
       name: React.PropTypes.string.isRequired,
       component: React.PropTypes.oneOfType([
@@ -26,7 +32,7 @@ const constants = {
         React.PropTypes.func,
       ]).isRequired,
     }),
-  }
+  },
 };
 
 constants.STYLES = StyleSheet.create({
