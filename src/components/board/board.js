@@ -14,10 +14,16 @@ class BoardTile extends React.Component {
   }
 
   render() {
+    let highlight;
+
+    if (this.props.children === '+' || this.props.children === '-') {
+      highlight = true;
+    }
+
     return <TouchableHighlight
       underlayColor="rgb(0,0,0)"
       activeOpacity={0.9} >
-      <View style={styles.tile} >
+      <View style={[styles.tile, highlight && styles.tileHighlight]} >
         <Text style={styles.tileText} >
           {this.props.children}
         </Text>
@@ -98,6 +104,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
+  },
+  tileHighlight: {
+    backgroundColor: 'rgb(245,245,245)',
   },
   tileText: {
     fontSize: 24,
