@@ -159,16 +159,42 @@ describe('A set of utility functions for the BoardStore', () => {
 
   describe('A function that sums values located in a path', () => {
     it('should accept an array of numbers and strings "+" and "-", and return a sum of those values', () => {
-      const sumFunc = boardStoreUtils.generateSum;
+      const generateSum = boardStoreUtils.generateSum;
       const path1 = [1, '+', 1];
       const path2 = [2, '-', 3];
       const path3 = [4, '+', 5, '-', 6];
       const path4 = [1, '+', 2, '+', 3, '-', 4, '-', 5];
 
-      expect(sumFunc(path1)).toBe(2);
-      expect(sumFunc(path2)).toBe(-1);
-      expect(sumFunc(path3)).toBe(3);
-      expect(sumFunc(path4)).toBe(-3);
+      expect(generateSum(path1)).toBe(2);
+      expect(generateSum(path2)).toBe(-1);
+      expect(generateSum(path3)).toBe(3);
+      expect(generateSum(path4)).toBe(-3);
+    });
+  });
+
+  describe('A function that determines whether a value is a valid number that can be added to the board', () => {
+    it('should work like Number.isNumber', () => {
+      const isNumber = boardStoreUtils.isNumber;
+
+      expect(isNumber(1)).toBe(true);
+      expect(isNumber(1000)).toBe(true);
+      expect(isNumber(0)).toBe(true);
+      expect(isNumber(-1)).toBe(true);
+      expect(isNumber(0.5)).toBe(false);
+      expect(isNumber('text')).toBe(false);
+      expect(isNumber('2')).toBe(false);
+      expect(isNumber(undefined)).toBe(false);
+    });
+  });
+
+  describe('A function which determines whether a value is a valid operator that can be included on the board', () => {
+    it('should only accept strings "+" and "-"', () => {
+      const isOperator = boardStoreUtils.isOperator;
+
+      expect(isOperator('+')).toBe(true);
+      expect(isOperator('-')).toBe(true);
+      expect(isOperator('*')).toBe(false);
+      expect(isOperator(3)).toBe(false);
     });
   });
 

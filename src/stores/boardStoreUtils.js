@@ -267,4 +267,6 @@ function createNewBoard(seed) {
 module.exports = {
   createNewBoard,
   generateSum,
+  isOperator,
+  isNumber,
 };
