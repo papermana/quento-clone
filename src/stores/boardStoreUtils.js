@@ -33,6 +33,24 @@ function isOperator(value) {
   return value === '+' || value === '-';
 }
 
+function possibleMoves(position) {
+  const possibleMoves = [];
+
+  if (!(position % 3 === 0)) {
+    possibleMoves.push(-1);
+  }
+  if (!(position % 3 === 2)) {
+    possibleMoves.push(1);
+  }
+  if (!(position < 3)) {
+    possibleMoves.push(-3);
+  }
+  if (!(position > 5)) {
+    possibleMoves.push(3);
+  }
+
+  return possibleMoves;
+}
 
 function generateBoardLayout(random) {
   const r = random || new Random();
@@ -127,31 +145,21 @@ function generatePath(length, boardLayout, r) {
   path.push(startingPoint);
 
   let i = 0;
-  let possibleMoves = [];
+  let possibleMovesList = [];
   let lastMove;
 
   while (i < length - 1) {
     const currentPosition = path[path.length - 1];
 
-    if (possibleMoves.length === 0) {
-      if (!(currentPosition % 3 === 0)) {
-        possibleMoves.push(-1);
-      }
-      if (!(currentPosition % 3 === 2)) {
-        possibleMoves.push(1);
-      }
-      if (!(currentPosition < 3)) {
-        possibleMoves.push(-3);
-      }
-      if (!(currentPosition > 5)) {
-        possibleMoves.push(3);
-      }
+    if (possibleMovesList.length === 0) {
+      possibleMovesList = possibleMoves(currentPosition);
+
       if (lastMove) {
-        possibleMoves = possibleMoves.filter(move => move !== lastMove * -1);
+        possibleMovesList = possibleMovesList.filter(move => move !== lastMove * -1);
       }
     }
 
-    const move = r.pick(possibleMoves);
+    const move = r.pick(possibleMovesList);
     const nextPosition = currentPosition + move;
     // const currentValue = boardLayout.get(currentPosition);
     // const nextValue = boardLayout.get(nextPosition);
@@ -176,7 +184,7 @@ function generatePath(length, boardLayout, r) {
 
     path.push(nextPosition);
 
-    possibleMoves = [];
+    possibleMovesList = [];
     lastMove = move;
 
     i++;
@@ -269,4 +277,5 @@ module.exports = {
   generateSum,
   isOperator,
   isNumber,
+  possibleMoves,
 };

@@ -198,4 +198,58 @@ describe('A set of utility functions for the BoardStore', () => {
     });
   });
 
+  describe('A function that accepts a tile id as an argument and returns valid moves from that tile', () => {
+    it('should accept a numerical value and return an array of numerical values', () => {
+      const possibleMoves = boardStoreUtils.possibleMoves;
+      const result = possibleMoves(0);
+
+      expect(result instanceof Array).toBe(true);
+      result.forEach(value => expect(typeof value === 'number'));
+    });
+
+    it('should always return at least 2 values, and at most 4 values', () => {
+      const possibleMoves = boardStoreUtils.possibleMoves;
+
+      for (let i = 0; i < 9; i++) {
+        const result = possibleMoves(i);
+
+        expect(result.length >= 2 && result.length <= 4);
+      }
+    });
+
+    it('should only return numbers 1, -1, 3 and -3', () => {
+      const possibleMove = boardStoreUtils.possibleMoves;
+
+      for (let i = 0; i < 9; i++) {
+        expect(possibleMove(i).every(isValueValid)).toBe(true);
+      }
+
+      function isValueValid(value) {
+        return value === 1 || value === -1 || value === 3 || value === -3;
+      }
+    });
+
+    it('should correctly return only adjacent positions', () => {
+      const possibleMoves = boardStoreUtils.possibleMoves;
+
+      expect(arrayContains(possibleMoves(0), [1, 3])).toBe(true);
+      expect(arrayContains(possibleMoves(1), [-1, 1, 3])).toBe(true);
+      expect(arrayContains(possibleMoves(2), [-1, 3])).toBe(true);
+      expect(arrayContains(possibleMoves(3), [-3, 1, 3])).toBe(true);
+      expect(arrayContains(possibleMoves(4), [-3, 1, 3, -1])).toBe(true);
+      expect(arrayContains(possibleMoves(5), [-3, -1, 3])).toBe(true);
+      expect(arrayContains(possibleMoves(6), [-3, 1])).toBe(true);
+      expect(arrayContains(possibleMoves(7), [-3, -1, 1])).toBe(true);
+      expect(arrayContains(possibleMoves(8), [-3, -1])).toBe(true);
+
+      function arrayContains(array1, array2) {
+        if (array1.length !== array2.length) {
+          return false;
+        }
+
+        return array1.every(value => array2.includes(value));
+      }
+    });
+  });
+
 });
