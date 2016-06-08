@@ -25,6 +25,7 @@ const constants = {
       React.PropTypes.node,
     ]),
     IMMUTABLE_OBJECT,
+    IMMUTABLE_LIST: React.PropTypes.instanceOf(Immutable.List),
     ROUTE: React.PropTypes.shape({
       name: React.PropTypes.string.isRequired,
       component: React.PropTypes.oneOfType([

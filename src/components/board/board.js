@@ -5,6 +5,7 @@ const {
   TouchableHighlight,
   View,
 } = require('react-native');
+const consts = require('@src/constants');
 
 
 class BoardTile extends React.Component {
@@ -25,6 +26,14 @@ class BoardTile extends React.Component {
   }
 }
 
+BoardTile.propTypes = {
+  children: React.PropTypes.oneOfType([
+    React.PropTypes.number,
+    React.PropTypes.string,
+  ]).isRequired,
+};
+
+
 class BoardRow extends React.Component {
   constructor(props) {
     super(props);
@@ -37,6 +46,11 @@ class BoardRow extends React.Component {
   }
 }
 
+BoardRow.propTypes = {
+  children: consts.PROPTYPES.IMMUTABLE_LIST,
+};
+
+
 class Board extends React.Component {
   constructor(props) {
     super(props);
@@ -45,11 +59,7 @@ class Board extends React.Component {
   render() {
     const tiles = this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .map((value, key) => <BoardTile key={key} >{value}</BoardTile>);
-    // const rows = tiles.forEach((value, key) => {
-    //   const position = Math.floor(key / 3);
-    //
-    //   if (!rows.get('position'))
-    // });
+
     const rows = tiles
     .groupBy((value, key) => Math.floor(key / 3))
     .toList()
@@ -60,6 +70,11 @@ class Board extends React.Component {
     </View>;
   }
 }
+
+Board.propTypes = {
+  model: consts.PROPTYPES.MODEL.isRequired,
+};
+
 
 const styles = StyleSheet.create({
   board: {
@@ -83,8 +98,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
-    // borderWidth: 1,
-    // borderColor: 'grey',
   },
   tileText: {
     fontSize: 24,
