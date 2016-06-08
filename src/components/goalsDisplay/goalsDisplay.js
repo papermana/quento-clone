@@ -1,20 +1,16 @@
 const React = require('react');
 const {
+  Image,
   StyleSheet,
   Text,
   View,
 } = require('react-native');
 const consts = require('@src/constants');
+const actionCreators = require('@src/actionCreators');
 
 
-class PreStar extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return <View style={styles.preStar} />;
-  }
+function PreStar(props) {
+  return <View style={styles.preStar} />;
 }
 
 
@@ -24,13 +20,29 @@ class Stars extends React.Component {
   }
 
   render() {
+    const challenges = this.props.model.state.get('challenges');
+    const stars = challenges && challenges.get(this.props.challengeId)
+    .map((challengeCompleted, key) => {
+      if (challengeCompleted) {
+        return <Image key={key}
+          style={styles.star}
+          source={require('./ic_star_white.png')} />;
+      }
+      else {
+        return <PreStar key={key} />;
+      }
+    });
+
     return <View style={styles.starsWrapper} >
-      <PreStar />
-      <PreStar />
-      <PreStar />
+      {stars}
     </View>;
   }
 }
+
+Stars.propTypes = {
+  model: consts.PROPTYPES.MODEL.isRequired,
+  challengeId: React.PropTypes.number.isRequired,
+};
 
 
 class Goal extends React.Component {
@@ -39,36 +51,40 @@ class Goal extends React.Component {
   }
 
   render() {
-    let length = this.props.challenge.get('length');
+    const challenge = this.props.model.board.getIn(['currentBoard', 'challenges', this.props.challengeId]);
+    let length = challenge.get('length');
 
     length = length === 3 ? 2 : (length === 5 ? 3 : 0);
 
     return <View style={styles.goal} >
       <Text style={styles.textSum} >
-        {this.props.challenge.get('solutions').last().get('sum')}
+        {challenge.get('solutions').last().get('sum')}
       </Text>
       <Text style={styles.textLength} >
         {length + ' numbers'}
       </Text>
-      <Stars />
+      <Stars challengeId={this.props.challengeId}
+        model={this.props.model} />
     </View>;
   }
 }
 
 Goal.propTypes = {
-  challenge: consts.PROPTYPES.IMMUTABLE_OBJECT.isRequired,
+  model: consts.PROPTYPES.MODEL.isRequired,
+  challengeId: React.PropTypes.number.isRequired,
 };
 
 
 class GoalsDisplay extends React.Component {
   constructor(props) {
     super(props);
+
+    actionCreators.prepareChallenges(this.props.model.board.getIn(['currentBoard', 'challenges']));
   }
 
   render() {
-    const challenges = this.props.model.board.getIn(['currentBoard', 'challenges']);
-    const goals = challenges.map((challenge, key) => <Goal key={key} challenge={challenge} />);
-
+    const goals = this.props.model.board.getIn(['currentBoard', 'challenges'])
+    .map((value, key) => <Goal key={key} challengeId={key} model={this.props.model} />);
 
     return <View style={styles.goalWrapper} >
       {goals}
