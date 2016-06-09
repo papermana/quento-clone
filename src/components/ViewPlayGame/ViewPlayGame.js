@@ -7,8 +7,8 @@ const {
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
 const MyText = require('@components/MyText');
-const Board = require('@components/board');
-const GoalsDisplay = require('@components/goalsDisplay');
+const Board = require('@components/Board');
+const GoalsDisplay = require('@components/GoalsDisplay');
 
 
 class ViewPlayGame extends React.Component {

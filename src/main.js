@@ -3,8 +3,8 @@ const {
   Container,
 } = require('flux/utils');
 const AppUI = require('@components/AppUI');
-const StateStore = require('@stores/stateStore');
-const BoardStore = require('@stores/boardStore');
+const StateStore = require('@stores/StateStore');
+const BoardStore = require('@stores/BoardStore');
 
 
 function isStoreReady(store, property) {
