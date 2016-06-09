@@ -1,5 +1,6 @@
 const React = require('react');
 const {
+  Animated,
   Image,
   StyleSheet,
   Text,
@@ -15,6 +16,76 @@ function PreStar(props) {
 }
 
 
+class SingleStar extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      completed: false,
+      nextCompleted: undefined,
+      scaleValue: new Animated.Value(1),
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (this.state.completed !== nextProps.solution.get('completed')) {
+      this.setState({
+        nextCompleted: !this.state.completed,
+      });
+
+      this.startTransition();
+    }
+  }
+
+  startTransition() {
+    Animated.timing(this.state.scaleValue, {
+      toValue: 0,
+      duration: 300,
+    })
+    .start(() => {
+      this.setState({
+        completed: this.state.nextCompleted,
+        nextCompleted: undefined,
+      });
+
+      Animated.timing(this.state.scaleValue, {
+        toValue: 1,
+        duration: 150,
+        delay: 350,
+      }).start();
+    });
+  }
+
+  render() {
+    const content = (() => {
+      if (this.state.completed) {
+        return <Image style={styles.star}
+          source={require('./ic_star_white.png')} />;
+      }
+      else {
+        return <PreStar />;
+      }
+    })();
+
+    const customStyles = {
+      starContainer: {
+        transform: [{scale: this.state.scaleValue}],
+      },
+    };
+
+
+    return <Animated.View
+      style={[styles.starContainer, customStyles.starContainer]} >
+      {content}
+    </Animated.View>;
+  }
+}
+
+SingleStar.propTypes = {
+  solution: consts.PROPTYPES.IMMUTABLE_OBJECT,
+};
+
+
 class Stars extends React.Component {
   constructor(props) {
     super(props);
@@ -23,16 +94,7 @@ class Stars extends React.Component {
   render() {
     const stars = this.props.model.board
     .getIn(['currentBoard', 'challenges', this.props.challengeId, 'solutions'])
-    .map((solution, key) => {
-      if (solution.get('completed')) {
-        return <Image key={key}
-          style={styles.star}
-          source={require('./ic_star_white.png')} />;
-      }
-      else {
-        return <PreStar key={key} />;
-      }
-    });
+    .map((solution, key) => <SingleStar key={key} solution={solution} />);
 
     return <View style={styles.starsWrapper} >
       {stars}
@@ -62,7 +124,7 @@ class Goal extends React.Component {
 
     return <View style={styles.goal} >
       <Text style={styles.textSum} >
-        {goal ? goal.get('sum') : '!'}
+        {goal ? goal.get('sum') : ''}
       </Text>
       <Text style={styles.textLength} >
         {length + ' numbers'}
@@ -101,6 +163,7 @@ GoalsDisplay.propTypes = {
 
 const styles = StyleSheet.create({
   goalWrapper: {
+    marginVertical: 8,
     flexDirection: 'row',
   },
   goal: {
@@ -118,12 +181,23 @@ const styles = StyleSheet.create({
   starsWrapper: {
     flexDirection: 'row',
   },
+  starContainer: {
+    width: 24,
+    height: 24,
+    margin: 2,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   preStar: {
     width: 6,
     height: 6,
     margin: 14,
     borderRadius: 3,
     backgroundColor: 'rgba(128,128,128,0.55)',
+  },
+  star: {
+    width: 24,
+    height: 24,
   },
 });
 
