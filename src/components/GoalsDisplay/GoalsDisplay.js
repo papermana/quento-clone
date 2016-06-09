@@ -180,14 +180,12 @@ const styles = StyleSheet.create({
   },
   textSum: {
     fontSize: 32,
-    color: 'rgba(0,0,0,0.9)',
   },
   textLengthWrapper: {
     height: 20,
   },
   textLength: {
     fontSize: 16,
-    color: 'rgba(0,0,0,0.9)',
   },
   starsWrapper: {
     flexDirection: 'row',

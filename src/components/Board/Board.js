@@ -48,6 +48,8 @@ class BoardTile extends React.Component {
     return <TouchableHighlight
       underlayColor="rgb(0,0,0)"
       activeOpacity={0.9}
+      delayPressIn={0}
+      delayPressOut={0}
       onPress={() => actionCreators.selectTile(this.props.tileId)} >
       <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
         <MyText style={styles.tileText} >
@@ -138,7 +140,6 @@ const styles = StyleSheet.create({
   },
   tileText: {
     fontSize: 24,
-    color: 'rgba(0,0,0,0.9)',
   },
 });
 

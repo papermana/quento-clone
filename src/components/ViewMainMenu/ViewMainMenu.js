@@ -58,7 +58,6 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 72,
-    color: 'rgba(0,0,0,0.9)',
   },
   playButton: {
     padding: 32,

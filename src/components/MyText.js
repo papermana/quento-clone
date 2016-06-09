@@ -31,6 +31,7 @@ const styles = StyleSheet.create({
   myText: {
     // fontFamily: 'Rubik-Regular',
     fontFamily: 'Raleway-Regular',
+    color: 'rgba(0,0,0,0.9)',
   },
 });
 
