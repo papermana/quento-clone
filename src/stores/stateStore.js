@@ -54,7 +54,6 @@ class StateStore extends ReduceStore {
       navStack: [],
       nextState: undefined,
       goingBack: undefined,
-      challenges: undefined,
       ready: true,
     });
 
@@ -73,16 +72,6 @@ class StateStore extends ReduceStore {
     }
     else if (action.type === 'playTheGame') {
       return goTo(state, 'ViewPlayGame');
-    }
-    else if (action.type === 'prepareChallenges') {
-      return state
-      .set('challenges', action.data.map(challenge => {
-        return challenge.get('solutions').map(solution => false);
-      }));
-    }
-    else if (action.type === 'succeededChallenge') {
-      return state
-      .setIn(['challenges', action.data.challengeId, action.data.solutionId], true);
     }
     else {
       return state;

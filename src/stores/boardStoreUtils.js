@@ -92,22 +92,24 @@ function generateChallenges(boardLayout, random) {
       - 5 for 3 numbers and 2 operators.
   */
   const challenges = [
-    generateSolutions(3, boardLayout, r),
-    generateSolutions(5, boardLayout, r),
+    generateSolutions(3, boardLayout, r, 0),
+    generateSolutions(5, boardLayout, r, 1),
   ];
 
   return Immutable.fromJS(challenges);
 }
 
-function generateSolutions(length, boardLayout, r) {
+function generateSolutions(length, boardLayout, r, id) {
   const result = {
+    id,
     length,
     solutions: [],
   };
+
   let i = 0;
 
   while (i < 3) {
-    const solution = generateOneSolution(length, boardLayout, r);
+    const solution = generateOneSolution(length, boardLayout, r, i);
 
     // No repeating solutions:
     if (
@@ -129,12 +131,14 @@ function generateSolutions(length, boardLayout, r) {
   return result;
 }
 
-function generateOneSolution(length, boardLayout, r) {
+function generateOneSolution(length, boardLayout, r, id) {
   const path = generatePath(length, boardLayout, r);
 
   return {
+    id,
     sum: generateSum(path.map(position => boardLayout.get(position))),
     path,
+    completed: false,
   };
 }
 

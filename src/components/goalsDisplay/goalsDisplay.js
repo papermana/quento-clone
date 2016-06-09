@@ -7,6 +7,7 @@ const {
 } = require('react-native');
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
+const getActiveGoal = require('@utils/getActiveGoal');
 
 
 function PreStar(props) {
@@ -20,10 +21,10 @@ class Stars extends React.Component {
   }
 
   render() {
-    const challenges = this.props.model.state.get('challenges');
-    const stars = challenges && challenges.get(this.props.challengeId)
-    .map((challengeCompleted, key) => {
-      if (challengeCompleted) {
+    const stars = this.props.model.board
+    .getIn(['currentBoard', 'challenges', this.props.challengeId, 'solutions'])
+    .map((solution, key) => {
+      if (solution.get('completed')) {
         return <Image key={key}
           style={styles.star}
           source={require('./ic_star_white.png')} />;
@@ -51,14 +52,17 @@ class Goal extends React.Component {
   }
 
   render() {
-    const challenge = this.props.model.board.getIn(['currentBoard', 'challenges', this.props.challengeId]);
-    let length = challenge.get('length');
-
-    length = length === 3 ? 2 : (length === 5 ? 3 : 0);
+    const challenge = this.props.model.board
+    .getIn(['currentBoard', 'challenges', this.props.challengeId]);
+    const length = {
+      3: 2,
+      5: 3,
+    }[challenge.get('length')];
+    const goal = getActiveGoal(challenge);
 
     return <View style={styles.goal} >
       <Text style={styles.textSum} >
-        {challenge.get('solutions').last().get('sum')}
+        {goal ? goal.get('sum') : '!'}
       </Text>
       <Text style={styles.textLength} >
         {length + ' numbers'}
@@ -78,8 +82,6 @@ Goal.propTypes = {
 class GoalsDisplay extends React.Component {
   constructor(props) {
     super(props);
-
-    actionCreators.prepareChallenges(this.props.model.board.getIn(['currentBoard', 'challenges']));
   }
 
   render() {

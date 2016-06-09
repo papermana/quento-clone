@@ -4,7 +4,7 @@ const {
 const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
 const utils = require('@stores/boardStoreUtils');
-const actionCreators = require('@src/actionCreators');
+const getActiveGoal = require('@utils/getActiveGoal');
 
 
 /*
@@ -12,6 +12,7 @@ const actionCreators = require('@src/actionCreators');
   {
     currentBoard: BoardObject,
     nextBoard: undefined or BoardObject,
+    selectedPath: [],
     ready: boolean [ommited in model],
   }
 
@@ -19,10 +20,12 @@ const actionCreators = require('@src/actionCreators');
     boardLayout: [number, '+', number, '-', number, '-', number, '+', number],
     challenges: [
       {
+        id: number,
         length: 3,
         solutions: [SolutionObject, SolutionObject, SolutionObject],
       },
       {
+        id: number,
         length: 5,
         solutions: [SolutionObject, SolutionObject, SolutionObject],
       },
@@ -30,8 +33,10 @@ const actionCreators = require('@src/actionCreators');
   }
 
   SolutionObject: {
+    id: number,
     sum: number,
     path: [number, ..., number],
+    completed: boolean,
   }
 */
 
@@ -89,32 +94,25 @@ function selectTile(state, tileId) {
 
   //  Calculate the sum of the path values. Compare that sum to the sum of the last solution from the challenge of the same length as the selected path.
   if (!utils.isOperator(selectedPathValues.last())) {
-    const sum = (() => {
-      if (selectedPathValues.size === 1) {
-        return selectedPathValues.last();
-      }
-      else {
-        return utils.generateSum(selectedPathValues);
-      }
-    })();
-    let relevantChallengeKey;
     const relevantChallenge = state.getIn(['currentBoard', 'challenges'])
-    .find((challenge, key) => {
-      if (challenge.get('length') === selectedPathValues.size) {
-        relevantChallengeKey = key;
-        return true;
+    .find(challenge => challenge.get('length') === selectedPathValues.size);
+
+    if (relevantChallenge) {
+      const goal = getActiveGoal(relevantChallenge);
+      let sum;
+
+      if (selectedPathValues.size === 1) {
+        sum = selectedPathValues.last();
       }
       else {
-        return false;
+        sum = utils.generateSum(selectedPathValues.toJS());
       }
-    });
-    const goal = relevantChallenge && relevantChallenge.get('solutions').last().get('sum');
 
-    if (goal && sum === goal) {
-      actionCreators.succeededChallenge(relevantChallengeKey);
-
-      return state
-      .set('selectedPath', Immutable.List());
+      if (sum === goal.get('sum')) {
+        return state
+        .setIn(['currentBoard', 'challenges', relevantChallenge.get('id'), 'solutions', goal.get('id'), 'completed'], true)
+        .set('selectedPath', Immutable.List());
+      }
     }
   }
 

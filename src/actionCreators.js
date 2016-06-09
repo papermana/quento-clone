@@ -18,8 +18,6 @@ const actionCreators = {};
   'goBack',
   'endTransition',
   'playTheGame',
-  'prepareChallenges',
-  'succeededChallenge',
   'selectTile',
 ]
 .forEach(string => createAction(string));
