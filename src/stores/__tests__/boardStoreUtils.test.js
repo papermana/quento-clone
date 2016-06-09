@@ -76,7 +76,7 @@ describe('A set of utility functions for the BoardStore', () => {
     });
 
     describe('An object containing solutions for the board that serve as challenges to the player', () => {
-      it('should be an `Immutable.List` containing a number of `Immutable.Map` objects, each with a `length` property, which is numerical, and a `solutions` property, which is another `Immutable.List`; the `solutions` property contains 3 `Immutable.Map` objects having a `sum` property, which is an integer, and a `path` property, which is an `Immutable.List` of a `size` indicated by the aforementioned `length` property', () => {
+      it('should be an `Immutable.List` containing a number of `Immutable.Map` objects, each with numerical `id` and `length` properties, and a `solutions` property, which is another `Immutable.List`; the `solutions` property contains 3 `Immutable.Map` objects having numerical `id` and `sum` properties, a `path` property, which is an `Immutable.List` of a `size` indicated by the aforementioned `length` property, and a boolean `completed` property', () => {
         const result = boardStoreUtils.createNewBoard();
         const challenges = result.get('challenges');
 
@@ -85,6 +85,7 @@ describe('A set of utility functions for the BoardStore', () => {
         /*
           challenges: [
             {
+              id: number,
               length: number,
               solutions: [solution, solution, solution],
             },
@@ -92,17 +93,23 @@ describe('A set of utility functions for the BoardStore', () => {
           ]
 
           solution: {
+            id: number,
             sum: number,
             path: [...],
+            completed: boolean,
           }
         */
 
         challenges.forEach(challenge => {
+          const id = challenge.get('length');
           const length = challenge.get('length');
           const solutions = challenge.get('solutions');
 
           expect(challenge).toBeDefined();
           expect(Immutable.Map.isMap(challenge)).toBe(true);
+
+          expect(id).toBeDefined();
+          expect(Number.isInteger(id)).toBe(true);
 
           expect(length).toBeDefined();
           expect(Number.isInteger(length)).toBe(true);
@@ -115,16 +122,27 @@ describe('A set of utility functions for the BoardStore', () => {
         });
 
         function forEachSolution(solution, size) {
+          const id = solution.get('id');
           const sum = solution.get('sum');
           const path = solution.get('path');
+          const completed = solution.get('completed');
 
+          expect(solution).toBeDefined();
           expect(Immutable.Map.isMap(solution)).toBe(true);
+
+          expect(id).toBeDefined();
+          expect(Number.isInteger(id)).toBe(true);
+
           expect(sum).toBeDefined();
           expect(Number.isInteger(sum)).toBe(true);
           expect(sum > 0).toBe(true);
+
           expect(path).toBeDefined();
           expect(Immutable.List.isList(path)).toBe(true);
           expect(path.size).toBe(size);
+
+          expect(completed).toBeDefined();
+          expect(completed).toBe(false);
         }
       });
 

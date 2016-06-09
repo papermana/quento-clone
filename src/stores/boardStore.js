@@ -29,6 +29,7 @@ const getActiveGoal = require('@utils/getActiveGoal');
         length: 5,
         solutions: [SolutionObject, SolutionObject, SolutionObject],
       },
+      ...
     ],
   }
 
