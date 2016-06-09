@@ -65,12 +65,6 @@ function selectTile(state, tileId) {
     return state;
   }
 
-  //  If the new path is longer than the longest challenge, clear it:
-  if (selectedPathPositions.size > maxLength) {
-    return state
-    .set('selectedPath', Immutable.List());
-  }
-
   //  If the only (and therefore first) value is an operator, do nothing:
   if (selectedPathValues.size === 1) {
     if (utils.isOperator(selectedPathValues.last())) {
@@ -118,6 +112,12 @@ function selectTile(state, tileId) {
         }
       }
     }
+  }
+
+  //  If the new path doesn't fit any challenge but is as long as the longest challenge, clear it:
+  if (selectedPathPositions.size >= maxLength) {
+    return state
+    .set('selectedPath', Immutable.List());
   }
 
   //  If nothing else does anything, simply update `selectedPath`:
