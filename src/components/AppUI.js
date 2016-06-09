@@ -94,7 +94,7 @@ class AppUI extends React.Component {
     return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]}
       onLayout={this.onLayoutFunc.bind(this)} >
       <StatusBar
-        backgroundColor="rgba(0,0,0,0.4)"
+        backgroundColor="rgba(0,0,0,0.2)"
         translucent />
 
       {
