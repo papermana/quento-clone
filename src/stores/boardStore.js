@@ -57,12 +57,16 @@ function selectTile(state, tileId) {
   const selectedPathValues = selectedPathPositions
   .map(position => state.getIn(['currentBoard', 'boardLayout']).get(position));
 
-  //  If the new position already appears in the path, do nothing:
+  //  If the new position already has been selected, clear the selected path up to, and including, that position:
   if (
     selectedPathPositions.pop()
     .includes(selectedPathPositions.last())
   ) {
-    return state;
+    const lastOccurence = selectedPathPositions.pop()
+    .keyOf(selectedPathPositions.last());
+
+    return state
+    .set('selectedPath', selectedPathPositions.setSize(lastOccurence));
   }
 
   //  If the only (and therefore first) value is an operator, do nothing:
