@@ -29,7 +29,9 @@ class ViewPlayGame extends React.Component {
       </View>
 
       <View style={styles.logoWrapper} >
-        <Text>{'Quento\nClone'}</Text>
+        <Text style={styles.logoText} >
+          {'Quento\nClone'}
+        </Text>
       </View>
 
       <View style={styles.goalsWrapper} >
@@ -44,12 +46,20 @@ class ViewPlayGame extends React.Component {
   }
 }
 
+ViewPlayGame.propTypes = {
+  model: consts.PROPTYPES.MODEL.isRequired,
+};
+
+
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'column',
-    alignItems: 'center',
     flex: 1,
+    alignItems: 'center',
     backgroundColor: 'purple',
+  },
+  logoText: {
+    fontSize: 48,
   },
 });
 
