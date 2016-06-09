@@ -100,19 +100,22 @@ function selectTile(state, tileId) {
 
     if (relevantChallenge) {
       const goal = getActiveGoal(relevantChallenge);
-      let sum;
 
-      if (selectedPathValues.size === 1) {
-        sum = selectedPathValues.last();
-      }
-      else {
-        sum = utils.generateSum(selectedPathValues.toJS());
-      }
+      if (goal) {
+        let sum;
 
-      if (sum === goal.get('sum')) {
-        return state
-        .setIn(['currentBoard', 'challenges', relevantChallenge.get('id'), 'solutions', goal.get('id'), 'completed'], true)
-        .set('selectedPath', Immutable.List());
+        if (selectedPathValues.size === 1) {
+          sum = selectedPathValues.last();
+        }
+        else {
+          sum = utils.generateSum(selectedPathValues.toJS());
+        }
+
+        if (sum === goal.get('sum')) {
+          return state
+          .setIn(['currentBoard', 'challenges', relevantChallenge.get('id'), 'solutions', goal.get('id'), 'completed'], true)
+          .set('selectedPath', Immutable.List());
+        }
       }
     }
   }
