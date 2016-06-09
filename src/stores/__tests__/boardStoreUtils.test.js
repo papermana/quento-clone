@@ -5,9 +5,9 @@ jest.unmock('immutable');
 const Immutable = require('immutable');
 const boardStoreUtils = require('@stores/boardStoreUtils');
 
-describe('A set of utility functions for the BoardStore', () => {
+describe('`boardStoreUtils`: A set of utility functions for the BoardStore', () => {
 
-  describe('A function which generates a board layout together with a set of solutions for it', () => {
+  describe('`createNewBoard()`: A function which generates a board layout together with a set of solutions for it', () => {
     it('should create a new `Immutable.js` object containing a `boardLayout` and `challenges` properties', () => {
       const result = boardStoreUtils.createNewBoard();
 
@@ -16,7 +16,7 @@ describe('A set of utility functions for the BoardStore', () => {
       expect(result.get('challenges')).toBeDefined();
     });
 
-    describe('An object which contains a layout for the board', () => {
+    describe('`boardLayout`: An object which contains a layout for the board', () => {
       it('should be an `Immutable.List` containing 9 values; values with indices of `1`, `3`, `5`, `7` should be strings containing either "+" or "-", while the rest should be integers', () => {
         const result = boardStoreUtils.createNewBoard();
         const layout = result.get('boardLayout');
@@ -75,7 +75,7 @@ describe('A set of utility functions for the BoardStore', () => {
       });
     });
 
-    describe('An object containing solutions for the board that serve as challenges to the player', () => {
+    describe('`challenges`: An object containing solutions for the board that serve as challenges to the player', () => {
       it('should be an `Immutable.List` containing a number of `Immutable.Map` objects, each with numerical `id` and `length` properties, and a `solutions` property, which is another `Immutable.List`; the `solutions` property contains 3 `Immutable.Map` objects having numerical `id` and `sum` properties, a `path` property, which is an `Immutable.List` of a `size` indicated by the aforementioned `length` property, and a boolean `completed` property', () => {
         const result = boardStoreUtils.createNewBoard();
         const challenges = result.get('challenges');
@@ -175,7 +175,7 @@ describe('A set of utility functions for the BoardStore', () => {
 
   });
 
-  describe('A function that sums values located in a path', () => {
+  describe('`generateSum()`: A function that sums values located in a path', () => {
     it('should accept an array of numbers and strings "+" and "-", and return a sum of those values', () => {
       const generateSum = boardStoreUtils.generateSum;
       const path1 = [1, '+', 1];
@@ -190,7 +190,7 @@ describe('A set of utility functions for the BoardStore', () => {
     });
   });
 
-  describe('A function that determines whether a value is a valid number that can be added to the board', () => {
+  describe('`isNumber()`: A function that determines whether a value is a valid number that can be added to the board', () => {
     it('should work like Number.isNumber', () => {
       const isNumber = boardStoreUtils.isNumber;
 
@@ -205,7 +205,7 @@ describe('A set of utility functions for the BoardStore', () => {
     });
   });
 
-  describe('A function which determines whether a value is a valid operator that can be included on the board', () => {
+  describe('`isOperator()`: A function which determines whether a value is a valid operator that can be included on the board', () => {
     it('should only accept strings "+" and "-"', () => {
       const isOperator = boardStoreUtils.isOperator;
 
@@ -216,7 +216,7 @@ describe('A set of utility functions for the BoardStore', () => {
     });
   });
 
-  describe('A function that accepts a tile id as an argument and returns valid moves from that tile', () => {
+  describe('`possibleMoves()`: A function that accepts a tile id as an argument and returns valid moves from that tile', () => {
     it('should accept a numerical value and return an array of numerical values', () => {
       const possibleMoves = boardStoreUtils.possibleMoves;
       const result = possibleMoves(0);
