@@ -7,6 +7,7 @@ const {
 } = require('react-native');
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
+const MyText = require('@components/MyText');
 
 
 class ViewMainMenu extends React.Component {
@@ -24,9 +25,9 @@ class ViewMainMenu extends React.Component {
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
 
       <View style={styles.logoWrapper} >
-        <Text style={styles.logoText} >
+        <MyText style={styles.logoText} >
           {'Quento\nClone'}
-        </Text>
+        </MyText>
       </View>
 
       <View style={styles.spacing} />
@@ -35,9 +36,9 @@ class ViewMainMenu extends React.Component {
         activeOpacity={0.5}
         onPress={() => actionCreators.playTheGame()} >
         <View>
-          <Text style={styles.playText} >
+          <MyText style={styles.playText} >
             Press to play
-          </Text>
+          </MyText>
         </View>
       </TouchableOpacity>
 

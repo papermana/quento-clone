@@ -9,6 +9,7 @@ const {
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
 const getActiveGoal = require('@utils/getActiveGoal');
+const MyText = require('@components/MyText');
 
 
 function PreStar(props) {
@@ -124,14 +125,14 @@ class Goal extends React.Component {
 
     return <View style={styles.goal} >
       <View style={styles.textSumWrapper} >
-        <Text style={styles.textSum} >
+        <MyText style={styles.textSum} >
           {goal ? goal.get('sum') : ''}
-        </Text>
+        </MyText>
       </View>
       <View style={styles.textLengthWrapper} >
-        <Text style={styles.textLength} >
+        <MyText style={styles.textLength} >
           {length + ' numbers'}
-        </Text>
+        </MyText>
       </View>
       <Stars challengeId={this.props.challengeId}
         model={this.props.model} />

@@ -7,6 +7,7 @@ const {
 } = require('react-native');
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
+const MyText = require('@components/MyText');
 
 
 class BoardTile extends React.Component {
@@ -49,9 +50,9 @@ class BoardTile extends React.Component {
       activeOpacity={0.9}
       onPress={() => actionCreators.selectTile(this.props.tileId)} >
       <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
-        <Text style={styles.tileText} >
+        <MyText style={styles.tileText} >
           {this.props.children}
-        </Text>
+        </MyText>
       </View>
     </TouchableHighlight>;
   }

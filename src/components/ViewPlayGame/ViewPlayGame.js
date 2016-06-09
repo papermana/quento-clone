@@ -6,6 +6,7 @@ const {
 } = require('react-native');
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
+const MyText = require('@components/MyText');
 const Board = require('@components/board');
 const GoalsDisplay = require('@components/goalsDisplay');
 
@@ -29,9 +30,9 @@ class ViewPlayGame extends React.Component {
       </View>
 
       <View style={styles.logoWrapper} >
-        <Text style={styles.logoText} >
+        <MyText style={styles.logoText} >
           {'Quento\nClone'}
-        </Text>
+        </MyText>
       </View>
 
       <View style={styles.goalsWrapper} >
