@@ -17,12 +17,12 @@ function PreStar(props) {
 }
 
 
-class SingleStar extends React.Component {
+class Star extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      completed: false,
+      completed: this.props.solution.get('completed'),
       nextCompleted: undefined,
       scaleValue: new Animated.Value(1),
     };
@@ -82,12 +82,12 @@ class SingleStar extends React.Component {
   }
 }
 
-SingleStar.propTypes = {
+Star.propTypes = {
   solution: consts.PROPTYPES.IMMUTABLE_OBJECT,
 };
 
 
-class Stars extends React.Component {
+class StarsWrapper extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -95,7 +95,7 @@ class Stars extends React.Component {
   render() {
     const stars = this.props.model.board
     .getIn(['currentBoard', 'challenges', this.props.challengeId, 'solutions'])
-    .map((solution, key) => <SingleStar key={key} solution={solution} />);
+    .map((solution, key) => <Star key={key} solution={solution} />);
 
     return <View style={styles.starsWrapper} >
       {stars}
@@ -103,7 +103,7 @@ class Stars extends React.Component {
   }
 }
 
-Stars.propTypes = {
+StarsWrapper.propTypes = {
   model: consts.PROPTYPES.MODEL.isRequired,
   challengeId: React.PropTypes.number.isRequired,
 };
@@ -134,7 +134,7 @@ class Goal extends React.Component {
           {length + ' numbers'}
         </MyText>
       </View>
-      <Stars challengeId={this.props.challengeId}
+      <StarsWrapper challengeId={this.props.challengeId}
         model={this.props.model} />
     </View>;
   }
