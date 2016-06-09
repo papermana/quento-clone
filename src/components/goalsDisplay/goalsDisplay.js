@@ -123,12 +123,16 @@ class Goal extends React.Component {
     const goal = getActiveGoal(challenge);
 
     return <View style={styles.goal} >
-      <Text style={styles.textSum} >
-        {goal ? goal.get('sum') : ''}
-      </Text>
-      <Text style={styles.textLength} >
-        {length + ' numbers'}
-      </Text>
+      <View style={styles.textSumWrapper} >
+        <Text style={styles.textSum} >
+          {goal ? goal.get('sum') : ''}
+        </Text>
+      </View>
+      <View style={styles.textLengthWrapper} >
+        <Text style={styles.textLength} >
+          {length + ' numbers'}
+        </Text>
+      </View>
       <Stars challengeId={this.props.challengeId}
         model={this.props.model} />
     </View>;
@@ -170,9 +174,15 @@ const styles = StyleSheet.create({
     width: 100,
     alignItems: 'center',
   },
+  textSumWrapper: {
+    height: 40,
+  },
   textSum: {
     fontSize: 32,
     color: 'rgba(0,0,0,0.9)',
+  },
+  textLengthWrapper: {
+    height: 20,
   },
   textLength: {
     fontSize: 16,
