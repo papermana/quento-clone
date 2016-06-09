@@ -4,7 +4,6 @@ const {
 const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
 const routes = require('@src/routes');
-const actionCreators = require('@src/actionCreators');
 
 
 function goBack(state) {

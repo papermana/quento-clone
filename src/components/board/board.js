@@ -6,11 +6,29 @@ const {
   View,
 } = require('react-native');
 const consts = require('@src/constants');
+const actionCreators = require('@src/actionCreators');
 
 
 class BoardTile extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      isHighlighted: false,
+    };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.model.board.get('selectedPath').includes(this.props.tileId)) {
+      this.setState({
+        isHighlighted: true,
+      });
+    }
+    else {
+      this.setState({
+        isHighlighted: false,
+      });
+    }
   }
 
   render() {
@@ -20,10 +38,17 @@ class BoardTile extends React.Component {
       darkerShade = true;
     }
 
+    const customStyles = {
+      highlight: {
+        backgroundColor: 'blue',
+      },
+    };
+
     return <TouchableHighlight
       underlayColor="rgb(0,0,0)"
-      activeOpacity={0.9} >
-      <View style={[styles.tile, darkerShade && styles.tileDarkerShade]} >
+      activeOpacity={0.9}
+      onPress={() => actionCreators.selectTile(this.props.tileId)} >
+      <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
         <Text style={styles.tileText} >
           {this.props.children}
         </Text>
@@ -37,6 +62,8 @@ BoardTile.propTypes = {
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,
+  tileId: React.PropTypes.number.isRequired,
+  model: consts.PROPTYPES.MODEL.isRequired,
 };
 
 
@@ -64,7 +91,7 @@ class Board extends React.Component {
 
   render() {
     const tiles = this.props.model.board.getIn(['currentBoard', 'boardLayout'])
-    .map((value, key) => <BoardTile key={key} >{value}</BoardTile>);
+    .map((value, key) => <BoardTile key={key} tileId={key} model={this.props.model} >{value}</BoardTile>);
 
     const rows = tiles
     .groupBy((value, key) => Math.floor(key / 3))

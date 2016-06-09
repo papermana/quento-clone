@@ -20,6 +20,7 @@ const actionCreators = {};
   'playTheGame',
   'prepareChallenges',
   'succeededChallenge',
+  'selectTile',
 ]
 .forEach(string => createAction(string));
 
