@@ -113,7 +113,7 @@ const styles = StyleSheet.create({
     borderRadius: 2,
   },
   containerShadow: {
-    backgroundColor: 'rgba(0,0,0,0.6)',
+    backgroundColor: consts.SHADOW_COLOR,
     transform: [{translate: [4, 4]}],
   },
   text: {

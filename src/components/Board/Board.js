@@ -88,8 +88,6 @@ class BoardTile extends React.Component {
       },
     };
 
-    //  () => actionCreators.selectTile(this.props.tileId)
-
     return <View style={[styles.tileWrapper, customStyles.tileWrapper]} >
       <Animated.View style={[styles.tile, styles.tileShadow, customStyles.tileShadowAnimation]} />
       <AnimatedTouchableHighlight
@@ -98,7 +96,7 @@ class BoardTile extends React.Component {
         delayPressIn={0}
         delayPressOut={0}
         style={[styles.tile, customStyles.tileAnimation]}
-        onPress={() => {}} >
+        onPress={() => actionCreators.selectTile(this.props.tileId)} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} >
             {this.props.children}
@@ -144,7 +142,7 @@ class Board extends React.Component {
 
     return <View style={styles.board}
       onStartShouldSetResponder={() => true}
-      onStartShouldSetResponderCapture={() => true}
+      onStartShouldSetResponderCapture={() => false}
       onResponderGrant={this.onPressFunc.bind(this)} >
       {tiles}
     </View>;
