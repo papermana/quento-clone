@@ -48,10 +48,11 @@ class ViewMainMenu extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: 'orange',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    // backgroundColor: 'orange',
+    backgroundColor: consts.MAINMENU_BACKGROUNDCOLOR,
   },
   logoWrapper: {
     alignItems: 'center',

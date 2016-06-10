@@ -24,7 +24,13 @@ class ViewPlayGame extends React.Component {
   }
 
   render() {
-    return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
+    const customStyles = {
+      container: {
+        backgroundColor: this.props.model.state.get('backgroundColor'),
+      },
+    };
+
+    return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container, customStyles.container]} >
 
       <View style={styles.optionsWrapper} >
 

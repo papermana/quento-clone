@@ -47,5 +47,32 @@ constants.STYLES = StyleSheet.create({
   },
 });
 
+constants.MAINMENU_BACKGROUNDCOLOR = 'rgb(255,245,25)';
+
+constants.BACKGROUNDCOLORS = [
+  //  light green:
+  '#6dde21',
+  //  green:
+  '#46b998',
+  //  turquoise:
+  '#46b998',
+  //  light blue:
+  '#84b7b8',
+  //  sky blue:
+  '#2da3d2',
+  //  blue:
+  '#1d62e2',
+  //  purple
+  '#a249b6',
+  //  fuchsia:
+  '#f391e2',
+  //  pink:
+  '#f00f69',
+  //  red
+  '#c74638',
+  //  yellow:
+  '#f4dc0b',
+];
+
 
 module.exports = constants;
