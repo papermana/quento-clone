@@ -11,7 +11,7 @@ const actionCreators = require('@src/actionCreators');
 const MyText = require('@components/MyText');
 
 
-const BOARD_PADDING = 20;
+const BOARD_PADDING = 0;
 
 const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHighlight);
 
@@ -53,14 +53,6 @@ class BoardTile extends React.Component {
         this.state.rotationValue.setValue(0);
       });
     });
-
-
-    // Animated.timing(this.state.rotationValue, {
-    //   toValue: 180,
-    //   duration: 2000,
-    // }).start(() => {
-    //   this.state.rotationValue.setValue(0);
-    // });
   }
 
   render() {
@@ -112,7 +104,7 @@ class BoardTile extends React.Component {
         delayPressIn={0}
         delayPressOut={0}
         style={[styles.tileTouchable, customStyles.tileAnimation]}
-        onPress={this.rotate.bind(this)} >
+        onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} >
             {this.props.children}
@@ -136,13 +128,58 @@ BoardTile.propTypes = {
 class Board extends React.Component {
   constructor(props) {
     super(props);
+
+    const tilesRotation = props.model.board.getIn(['currentBoard', 'boardLayout'])
+    .map(value => new Animated.Value(0));
+
+    this.state = {
+      tilesRotation,
+    };
+  }
+
+  rotate(rotationValue) {
+    Animated.timing(rotationValue, {
+      toValue: 90,
+      duration: 500,
+    }).start(() => {
+      rotationValue.setValue(270);
+
+      Animated.timing(rotationValue, {
+        toValue: 360,
+        duration: 500,
+      }).start(() => {
+        rotationValue.setValue(0);
+      });
+    });
+  }
+
+  onPressFunc() {
+    // console.warn(this.refs.tile0.rotate);
+    // this.state.tilesRotation.forEach((value, key) => {
+    //   setTimeout(() => this.rotate(value), (key) * 35);
+    // });
+    this.props.model.board.getIn(['currentBoard', 'boardLayout'])
+    .forEach((value, key) => {
+      setTimeout(() => this.refs['tile' + key].rotate(), key * 35);
+    });
   }
 
   render() {
     const tiles = this.props.model.board.getIn(['currentBoard', 'boardLayout'])
-    .map((value, key) => <BoardTile key={key} tileId={key} model={this.props.model} >{value}</BoardTile>);
+    .map((value, key) => {
+      return <BoardTile key={key}
+        ref={'tile' + key}
+        tileId={key}
+        model={this.props.model}
+        rotationValue={this.state.tilesRotation.get(key)} >
+        {value}
+      </BoardTile>;
+    });
 
-    return <View style={styles.board} >
+    return <View style={styles.board}
+      onStartShouldSetResponder={() => true}
+      onStartShouldSetResponderCapture={() => true}
+      onResponderGrant={this.onPressFunc.bind(this)} >
       {tiles}
     </View>;
   }
