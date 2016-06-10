@@ -202,7 +202,7 @@ const styles = StyleSheet.create({
     height: 6,
     margin: 14,
     borderRadius: 3,
-    backgroundColor: 'rgba(128,128,128,0.55)',
+    backgroundColor: 'rgba(0,0,0,0.45)',
   },
   star: {
     width: 24,
