@@ -9,31 +9,33 @@ const IMMUTABLE_OBJECT = React.PropTypes.instanceOf(Immutable.Map);
 
 const constants = {
   STATUSBAR_HEIGHT: 24,
-  PROPTYPES: {
-    MODEL: React.PropTypes.shape({
-      state: IMMUTABLE_OBJECT,
-      board: IMMUTABLE_OBJECT,
-    }),
-    // StyleSheet.create returns id as a number:
-    STYLE: React.PropTypes.oneOfType([
-      React.PropTypes.array,
-      React.PropTypes.object,
-      React.PropTypes.number,
-    ]),
-    CHILDREN: React.PropTypes.oneOfType([
-      React.PropTypes.arrayOf(React.PropTypes.node),
-      React.PropTypes.node,
-    ]),
-    IMMUTABLE_OBJECT,
-    IMMUTABLE_LIST: React.PropTypes.instanceOf(Immutable.List),
-    ROUTE: React.PropTypes.shape({
-      name: React.PropTypes.string.isRequired,
-      component: React.PropTypes.oneOfType([
-        React.PropTypes.instanceOf(React.Component),
-        React.PropTypes.func,
-      ]).isRequired,
-    }),
-  },
+  SHADOW_COLOR: 'rgba(0,0,0,0.4)',
+};
+
+constants.PROPTYPES = {
+  MODEL: React.PropTypes.shape({
+    state: IMMUTABLE_OBJECT,
+    board: IMMUTABLE_OBJECT,
+  }),
+  // StyleSheet.create returns id as a number:
+  STYLE: React.PropTypes.oneOfType([
+    React.PropTypes.array,
+    React.PropTypes.object,
+    React.PropTypes.number,
+  ]),
+  CHILDREN: React.PropTypes.oneOfType([
+    React.PropTypes.arrayOf(React.PropTypes.node),
+    React.PropTypes.node,
+  ]),
+  IMMUTABLE_OBJECT,
+  IMMUTABLE_LIST: React.PropTypes.instanceOf(Immutable.List),
+  ROUTE: React.PropTypes.shape({
+    name: React.PropTypes.string.isRequired,
+    component: React.PropTypes.oneOfType([
+      React.PropTypes.instanceOf(React.Component),
+      React.PropTypes.func,
+    ]).isRequired,
+  }),
 };
 
 constants.STYLES = StyleSheet.create({
