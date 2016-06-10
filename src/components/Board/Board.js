@@ -2,7 +2,6 @@ const React = require('react');
 const {
   Animated,
   StyleSheet,
-  Text,
   TouchableHighlight,
   View,
 } = require('react-native');
@@ -56,12 +55,7 @@ class BoardTile extends React.Component {
   }
 
   render() {
-    let darkerShade;
-
-    if (this.props.children === '+' || this.props.children === '-') {
-      darkerShade = true;
-    }
-
+    const darkerShade = this.props.children === '+' || this.props.children === '-';
     const rotateTransform = {
       rotateY: this.state.rotationValue.interpolate({
         inputRange: [0, 360],
@@ -103,7 +97,7 @@ class BoardTile extends React.Component {
         activeOpacity={0.9}
         delayPressIn={0}
         delayPressOut={0}
-        style={[styles.tileTouchable, customStyles.tileAnimation]}
+        style={[styles.tile, customStyles.tileAnimation]}
         onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} >
@@ -128,36 +122,9 @@ BoardTile.propTypes = {
 class Board extends React.Component {
   constructor(props) {
     super(props);
-
-    const tilesRotation = props.model.board.getIn(['currentBoard', 'boardLayout'])
-    .map(value => new Animated.Value(0));
-
-    this.state = {
-      tilesRotation,
-    };
-  }
-
-  rotate(rotationValue) {
-    Animated.timing(rotationValue, {
-      toValue: 90,
-      duration: 500,
-    }).start(() => {
-      rotationValue.setValue(270);
-
-      Animated.timing(rotationValue, {
-        toValue: 360,
-        duration: 500,
-      }).start(() => {
-        rotationValue.setValue(0);
-      });
-    });
   }
 
   onPressFunc() {
-    // console.warn(this.refs.tile0.rotate);
-    // this.state.tilesRotation.forEach((value, key) => {
-    //   setTimeout(() => this.rotate(value), (key) * 35);
-    // });
     this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .forEach((value, key) => {
       setTimeout(() => this.refs['tile' + key].rotate(), key * 35);
@@ -170,8 +137,7 @@ class Board extends React.Component {
       return <BoardTile key={key}
         ref={'tile' + key}
         tileId={key}
-        model={this.props.model}
-        rotationValue={this.state.tilesRotation.get(key)} >
+        model={this.props.model} >
         {value}
       </BoardTile>;
     });
@@ -194,22 +160,8 @@ const styles = StyleSheet.create({
   board: {
     width: 300 + 2 * BOARD_PADDING,
     height: 300 + 2 * BOARD_PADDING,
-    padding: 5,
-    flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  row: {
-    height: 100,
-    width: 302,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-  },
-  tileWrapper: {
-    width: 105,
-    height: 105,
   },
   tile: {
     position: 'absolute',
@@ -217,7 +169,6 @@ const styles = StyleSheet.create({
     top: 0,
     width: 100,
     height: 100,
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: 'white',
@@ -227,13 +178,6 @@ const styles = StyleSheet.create({
   },
   tileShadow: {
     backgroundColor: consts.SHADOW_COLOR,
-  },
-  tileTouchable: {
-    width: 100,
-    height: 100,
-    position: 'absolute',
-    top: 0,
-    left: 0,
   },
   tileText: {
     fontSize: 24,
