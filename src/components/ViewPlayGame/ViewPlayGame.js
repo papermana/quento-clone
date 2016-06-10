@@ -72,6 +72,7 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 48,
+    color: 'rgba(0,0,0,0.75)',
   },
   pathDisplayWrapper: {
     position: 'absolute',
