@@ -53,7 +53,7 @@ function possibleMoves(position) {
 }
 
 function generateBoardLayout(random) {
-  const r = random || new Random();
+  const r = random || new Random(Random.engines.mt19937().autoSeed());
 
   const operators = ['+', '-', '-', '+'];
   const numbers = [];
@@ -85,7 +85,7 @@ function generateBoardLayout(random) {
 }
 
 function generateChallenges(boardLayout, random) {
-  const r = random || new Random();
+  const r = random || new Random(Random.engines.mt19937().autoSeed());
 
   /*  Lengths are:
       - 3 for 2 numbers and 1 operator,
