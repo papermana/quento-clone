@@ -96,7 +96,7 @@ class BoardTile extends React.Component {
         delayPressIn={0}
         delayPressOut={0}
         style={[styles.tile, customStyles.tileAnimation]}
-        onPress={() => actionCreators.selectTile(this.props.tileId)} >
+        onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} >
             {this.props.children}
@@ -120,9 +120,56 @@ BoardTile.propTypes = {
 class Board extends React.Component {
   constructor(props) {
     super(props);
+
+    this.position = {
+      x: undefined,
+      y: undefined,
+    };
+
+    this.swipe = undefined;
+
+    this._Responder = {
+      onStartShouldSetResponder: () => true,
+      onStartShouldSetResponderCapture: () => true,
+      onMoveShouldSetResponder: () => true,
+      onMoveShouldSetResponderCapture: () => true,
+      onResponderGrant: this.selectTile.bind(this),
+      onResponderMove: this.selectTile.bind(this),
+      onResponderRelease: () => {
+        this.swipe = undefined;
+      },
+    };
   }
 
-  onPressFunc() {
+  onLayoutFunc(e) {
+    this.refs.boardView.measure((fx, fy, width, height, px, py) => {
+      this.position = {
+        x: px,
+        y: py,
+      };
+    });
+  }
+
+  selectTile(e) {
+    const X = e.nativeEvent.pageX - this.position.x;
+    const Y = e.nativeEvent.pageY - this.position.y;
+    const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
+    const path = this.props.model.board.get('selectedPath');
+
+    if (this.swipe && path.size === 0) {
+      return;
+    }
+
+    if (!this.swipe || this.swipe.lastId !== id) {
+      this.swipe = {
+        lastId: id,
+      };
+
+      actionCreators.selectTile(id);
+    }
+  }
+
+  rotateTiles() {
     this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .forEach((value, key) => {
       setTimeout(() => this.refs['tile' + key].rotate(), key * 35);
@@ -140,10 +187,9 @@ class Board extends React.Component {
       </BoardTile>;
     });
 
-    return <View style={styles.board}
-      onStartShouldSetResponder={() => true}
-      onStartShouldSetResponderCapture={() => false}
-      onResponderGrant={this.onPressFunc.bind(this)} >
+    return <View style={styles.board} ref="boardView"
+      onLayout={this.onLayoutFunc.bind(this)}
+      {...this._Responder} >
       {tiles}
     </View>;
   }
