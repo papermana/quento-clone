@@ -16,7 +16,7 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.91 r"
-   sodipodi:docname="icon.svg">
+   sodipodi:docname="app_icon.svg">
   <defs
      id="defs4">
     <linearGradient
@@ -51,8 +51,8 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="1.979899"
-     inkscape:cx="70.821907"
-     inkscape:cy="129.61516"
+     inkscape:cx="38.497026"
+     inkscape:cy="88.703982"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -76,7 +76,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -96,7 +96,7 @@
            x="82.85714"
            y="215.21935"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Work Sans';-inkscape-font-specification:'Work Sans'" /></flowRegion><flowPara
-         id="flowPara4142"></flowPara></flowRoot>    <g
+         id="flowPara4142" /></flowRoot>    <g
        id="g4242"
        transform="translate(0,-1.9345703e-5)">
       <g
@@ -125,7 +125,7 @@
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.89803922;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
        x="35.607891"
        y="977.73712"
        id="text4345"
@@ -136,7 +136,8 @@
          id="tspan4347"><tspan
            x="35.607891"
            y="977.73712"
-           id="tspan4349">Qu</tspan></tspan></text>
+           id="tspan4349"
+           style="-inkscape-font-specification:'Work Sans Light';font-family:'Work Sans';font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal;fill:#000000;fill-opacity:1;">Qu</tspan></tspan></text>
     <rect
        style="opacity:1;fill:url(#radialGradient4305);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
        id="rect4152-1-7"

@@ -1,5 +1,8 @@
 #!/bin/bash
 
+svgexport app_icon.svg app_icon.png
+optipng -o7 app_icon.png
+
 svgexport app_icon.svg ../android/app/src/main/res/mipmap-mdpi/ic_launcher.png 48:48
 optipng -o7 ../android/app/src/main/res/mipmap-mdpi/ic_launcher.png
 
