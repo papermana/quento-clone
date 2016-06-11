@@ -15,20 +15,29 @@ const BOARD_PADDING = 20;
 const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHighlight);
 
 
+function getHighlightColor(id) {
+  return 'rgba(80,80,225,' + (1 - 0.03 * id) + ')';
+}
+
+
 class BoardTile extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
       isHighlighted: false,
+      highlightColor: 'transparent',
       rotationValue: new Animated.Value(0),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.model.board.get('selectedPath').includes(this.props.tileId)) {
+      const key = nextProps.model.board.get('selectedPath').keyOf(this.props.tileId);
+
       this.setState({
         isHighlighted: true,
+        highlightColor: getHighlightColor(key),
       });
     }
     else {
@@ -74,7 +83,7 @@ class BoardTile extends React.Component {
         left: (this.props.tileId % 3) * 100 + BOARD_PADDING,
       },
       highlight: {
-        backgroundColor: 'blue',
+        backgroundColor: this.state.highlightColor,
       },
       tileAnimation: {
         transform: [rotateTransform],
@@ -133,12 +142,12 @@ class Board extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
-      // onResponderGrant: this.selectTile.bind(this),
-      // onResponderMove: this.selectTile.bind(this),
-      // onResponderRelease: () => {
-      //   this.swipe = undefined;
-      // },
-      onResponderGrant: () => actionCreators.winTheGame(),
+      onResponderGrant: this.selectTile.bind(this),
+      onResponderMove: this.selectTile.bind(this),
+      onResponderRelease: () => {
+        this.swipe = undefined;
+      },
+      // onResponderGrant: () => actionCreators.winTheGame(),
     };
   }
 
