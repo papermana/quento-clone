@@ -136,7 +136,7 @@ class Goal extends React.Component {
 
     return <View style={styles.goal} >
       <View style={styles.textSumWrapper} >
-        <MyText style={styles.textSum} >
+        <MyText style={styles.textSum} medium >
           {goal ? goal.get('sum') : ''}
         </MyText>
       </View>

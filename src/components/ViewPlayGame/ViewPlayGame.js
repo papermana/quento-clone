@@ -96,7 +96,7 @@ class ViewPlayGame extends React.Component {
       </View>
 
       <View style={styles.logoWrapper} >
-        <MyText style={styles.logoText} >
+        <MyText style={styles.logoText} large >
           {'Quento\nClone'}
         </MyText>
       </View>

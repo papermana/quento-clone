@@ -25,7 +25,7 @@ class ViewMainMenu extends React.Component {
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
 
       <View style={styles.logoWrapper} >
-        <MyText style={styles.logoText} >
+        <MyText style={styles.logoText} large >
           {'Quento\nClone'}
         </MyText>
       </View>
@@ -36,7 +36,7 @@ class ViewMainMenu extends React.Component {
         activeOpacity={0.5}
         onPress={() => actionCreators.playTheGame()} >
         <View>
-          <MyText style={styles.playText} >
+          <MyText style={styles.playText} large >
             Press to play
           </MyText>
         </View>
@@ -59,14 +59,13 @@ const styles = StyleSheet.create({
   },
   logoText: {
     fontSize: 72,
-    color: 'rgba(0,0,0,0.75)',
   },
   playButton: {
     padding: 32,
   },
   playText: {
     fontSize: 48,
-    color: 'rgba(0,0,0,0.8)',
+    // color: 'rgba(0,0,0,0.8)',
   },
   spacing: {
     height: 100,

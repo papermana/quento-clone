@@ -12,7 +12,10 @@ class MyText extends React.Component {
   }
 
   render() {
-    return <Text style={[styles.myText, this.props.style]} >
+    const size = (this.props.large && 'large') ||
+      (this.props.medium && 'medium');
+
+    return <Text style={[styles.myText, styles[size], this.props.style]} >
       {this.props.children}
     </Text>;
   }
@@ -24,14 +27,22 @@ MyText.propTypes = {
     React.PropTypes.number,
   ]).isRequired,
   style: consts.PROPTYPES.STYLE,
+  large: React.PropTypes.bool,
+  medium: React.PropTypes.bool,
 };
 
 
 const styles = StyleSheet.create({
   myText: {
-    // fontFamily: 'Rubik-Regular',
-    fontFamily: 'Raleway-Regular',
+    fontFamily: 'WorkSans-Light',
     color: 'rgba(0,0,0,0.9)',
+  },
+  large: {
+    fontFamily: 'WorkSans-ExtraLight',
+    color: 'rgba(0,0,0,0.75)',
+  },
+  medium: {
+    fontFamily: 'WorkSans-ExtraLight',
   },
 });
 

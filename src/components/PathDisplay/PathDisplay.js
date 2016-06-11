@@ -86,7 +86,7 @@ class PathDisplay extends React.Component {
     return <Animated.View style={[styles.wrapper, customStyles.wrapper]} >
       <View style={[styles.container, customStyles.container, styles.containerShadow]} />
       <View style={[styles.container, customStyles.container]} >
-        <MyText style={styles.text} >
+        <MyText style={styles.text} medium >
           {this.state.displayText}
         </MyText>
       </View>

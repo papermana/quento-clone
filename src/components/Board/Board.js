@@ -107,7 +107,7 @@ class BoardTile extends React.Component {
         style={[styles.tile, customStyles.tileAnimation]}
         onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
-          <MyText style={styles.tileText} >
+          <MyText style={styles.tileText} medium >
             {this.props.children}
           </MyText>
         </View>
