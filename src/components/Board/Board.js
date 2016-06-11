@@ -10,7 +10,7 @@ const actionCreators = require('@src/actionCreators');
 const MyText = require('@components/MyText');
 
 
-const BOARD_PADDING = 0;
+const BOARD_PADDING = 20;
 
 const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHighlight);
 
