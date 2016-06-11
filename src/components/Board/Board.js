@@ -142,12 +142,12 @@ class Board extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
-      onResponderGrant: this.selectTile.bind(this),
-      onResponderMove: this.selectTile.bind(this),
-      onResponderRelease: () => {
-        this.swipe = undefined;
-      },
-      // onResponderGrant: () => actionCreators.winTheGame(),
+      // onResponderGrant: this.selectTile.bind(this),
+      // onResponderMove: this.selectTile.bind(this),
+      // onResponderRelease: () => {
+      //   this.swipe = undefined;
+      // },
+      onResponderGrant: () => actionCreators.winTheGame(),
     };
   }
 
