@@ -96,7 +96,7 @@ class ViewPlayGame extends React.Component {
       </View>
 
       <View style={styles.logoWrapper} >
-        <MyText style={styles.logoText} large >
+        <MyText style={styles.logoText} large logo >
           {'Quento\nClone'}
         </MyText>
       </View>
@@ -128,10 +128,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: 'purple',
-  },
-  logoText: {
-    fontSize: 48,
-    color: 'rgba(0,0,0,0.75)',
   },
   pathDisplayWrapper: {
     position: 'absolute',

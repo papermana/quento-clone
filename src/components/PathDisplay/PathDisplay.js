@@ -86,7 +86,7 @@ class PathDisplay extends React.Component {
     return <Animated.View style={[styles.wrapper, customStyles.wrapper]} >
       <View style={[styles.container, customStyles.container, styles.containerShadow]} />
       <View style={[styles.container, customStyles.container]} >
-        <MyText style={styles.text} medium >
+        <MyText style={styles.text} xmedium >
           {this.state.displayText}
         </MyText>
       </View>
@@ -115,9 +115,6 @@ const styles = StyleSheet.create({
   containerShadow: {
     backgroundColor: consts.SHADOW_COLOR,
     transform: [{translate: [4, 4]}],
-  },
-  text: {
-    fontSize: 32,
   },
 });
 

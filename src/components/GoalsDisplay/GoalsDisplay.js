@@ -136,12 +136,12 @@ class Goal extends React.Component {
 
     return <View style={styles.goal} >
       <View style={styles.textSumWrapper} >
-        <MyText style={styles.textSum} medium >
+        <MyText style={styles.textSum} xmedium >
           {goal ? goal.get('sum') : ''}
         </MyText>
       </View>
       <View style={styles.textLengthWrapper} >
-        <MyText style={styles.textLength} >
+        <MyText style={styles.textLength} standard >
           {length + ' numbers'}
         </MyText>
       </View>
@@ -189,14 +189,8 @@ const styles = StyleSheet.create({
   textSumWrapper: {
     height: 40,
   },
-  textSum: {
-    fontSize: 32,
-  },
   textLengthWrapper: {
     height: 20,
-  },
-  textLength: {
-    fontSize: 16,
   },
   starsWrapper: {
     flexDirection: 'row',

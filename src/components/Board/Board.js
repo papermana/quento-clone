@@ -233,9 +233,6 @@ const styles = StyleSheet.create({
   tileShadow: {
     backgroundColor: consts.SHADOW_COLOR,
   },
-  tileText: {
-    fontSize: 24,
-  },
 });
 
 

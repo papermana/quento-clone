@@ -25,7 +25,7 @@ class ViewMainMenu extends React.Component {
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
 
       <View style={styles.logoWrapper} >
-        <MyText style={styles.logoText} large >
+        <MyText style={styles.logoText} xlarge logo>
           {'Quento\nClone'}
         </MyText>
       </View>
@@ -57,15 +57,8 @@ const styles = StyleSheet.create({
   logoWrapper: {
     alignItems: 'center',
   },
-  logoText: {
-    fontSize: 72,
-  },
   playButton: {
     padding: 32,
-  },
-  playText: {
-    fontSize: 48,
-    // color: 'rgba(0,0,0,0.8)',
   },
   spacing: {
     height: 100,
