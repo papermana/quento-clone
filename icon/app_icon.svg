@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="192"
+   height="192"
+   viewBox="0 0 192 192"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.91 r"
+   sodipodi:docname="icon.svg">
+  <defs
+     id="defs4">
+    <linearGradient
+       inkscape:collect="always"
+       id="linearGradient4299">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.09803922"
+         offset="0"
+         id="stop4301" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0"
+         offset="1"
+         id="stop4303" />
+    </linearGradient>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient4299"
+       id="radialGradient4305"
+       cx="-250.64285"
+       cy="886.36212"
+       fx="-250.64285"
+       fy="886.36212"
+       r="76"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(-1.9382665e-7,1.9999997,-1.9999998,-1.9382666e-7,1792.724,1381.648)" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="70.821907"
+     inkscape:cy="129.61516"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     units="px"
+     inkscape:object-paths="true"
+     inkscape:snap-intersection-paths="true"
+     inkscape:object-nodes="true"
+     inkscape:snap-smooth-nodes="true"
+     inkscape:snap-object-midpoints="true"
+     inkscape:snap-center="true"
+     inkscape:window-width="1609"
+     inkscape:window-height="1026"
+     inkscape:window-x="71"
+     inkscape:window-y="24"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(0,-860.36216)">
+    <flowRoot
+       xml:space="preserve"
+       id="flowRoot4136"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:40px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"><flowRegion
+         id="flowRegion4138"><rect
+           id="rect4140"
+           width="471.42856"
+           height="294.28571"
+           x="82.85714"
+           y="215.21935"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Work Sans';-inkscape-font-specification:'Work Sans'" /></flowRegion><flowPara
+         id="flowPara4142"></flowPara></flowRoot>    <g
+       id="g4242"
+       transform="translate(0,-1.9345703e-5)">
+      <g
+         transform="translate(0,-2.1308594e-5)"
+         id="g4222">
+        <rect
+           style="opacity:1;fill:#fff519;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
+           id="rect4152-1"
+           width="152"
+           height="152"
+           x="20"
+           y="880.36218"
+           rx="8"
+           ry="8" />
+        <path
+           style="opacity:1;fill:#ffffff;fill-opacity:0.2;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
+           d="m 28,880.36218 c -4.432,0 -8,3.568 -8,8 l 0,4 c 0,-4.432 3.568,-8 8,-8 l 136,0 c 4.432,0 8,3.568 8,8 l 0,-4 c 0,-4.432 -3.568,-8 -8,-8 l -136,0 z"
+           id="rect4152-2"
+           inkscape:connector-curvature="0" />
+      </g>
+      <path
+         inkscape:connector-curvature="0"
+         id="rect4152-1-1-2"
+         d="m 20,1020.3622 0,4 c 0,4.432 3.568,8 8,8 l 136,0 c 4.432,0 8,-3.568 8,-8 l 0,-4 c 0,4.432 -3.568,8 -8,8 l -136,0 c -4.432,0 -8,-3.568 -8,-8 z"
+         style="opacity:1;fill:#bf360c;fill-opacity:0.2;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2" />
+    </g>
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:0.89803922;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="35.607891"
+       y="977.73712"
+       id="text4345"
+       sodipodi:linespacing="125%"><tspan
+         sodipodi:role="line"
+         x="35.607891"
+         y="977.73712"
+         id="tspan4347"><tspan
+           x="35.607891"
+           y="977.73712"
+           id="tspan4349">Qu</tspan></tspan></text>
+    <rect
+       style="opacity:1;fill:url(#radialGradient4305);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
+       id="rect4152-1-7"
+       width="152"
+       height="152"
+       x="20"
+       y="880.36218"
+       rx="8"
+       ry="8" />
+  </g>
+</svg>
