@@ -1,5 +1,7 @@
 const React = require('react');
 const {
+  Animated,
+  Dimensions,
   StyleSheet,
   Text,
   View,
@@ -15,22 +17,79 @@ const PathDisplay = require('@components/PathDisplay');
 class ViewPlayGame extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      currentBgColor: props.model.state.get('backgroundColor'),
+      nextBgColor: undefined,
+      bgColorRippleAnim: new Animated.Value(0),
+    };
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.nextState) {
       actionCreators.endTransition();
+
+      return;
+    }
+
+    if (!this.state.nextBgColor && this.props.model.state.get('backgroundColor') !== nextProps.model.state.get('backgroundColor')) {
+
+      this.setState({
+        nextBgColor: nextProps.model.state.get('backgroundColor'),
+      }, () => {
+        this.animateBackgroundColorRipple();
+      });
     }
   }
 
+  animateBackgroundColorRipple() {
+    Animated.timing(this.state.bgColorRippleAnim, {
+      toValue: 1,
+      duration: 2000,
+    }).start(() => {
+      this.setState({
+        currentBgColor: this.state.nextBgColor,
+        nextBgColor: undefined,
+      }, () => {
+        this.state.bgColorRippleAnim.setValue(0);
+      });
+    });
+  }
+
   render() {
+    const {height: screenHeight, width: screenWidth} = Dimensions.get('window');
+    const longerEdge = screenHeight > screenWidth ? screenHeight : screenWidth;
+    const rippleSize = this.state.bgColorRippleAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0.1, longerEdge * 1.41 * 2],
+    });
+    const rippleOffsetY = this.state.bgColorRippleAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [0, -1 * longerEdge * 1.41],
+    });
+    const rippleOffsetX = this.state.bgColorRippleAnim.interpolate({
+      inputRange: [0, 1],
+      outputRange: [screenWidth / 2, -1 * longerEdge * 1.41 + screenWidth / 2],
+    });
+
     const customStyles = {
       container: {
-        backgroundColor: this.props.model.state.get('backgroundColor'),
+        backgroundColor: this.state.currentBgColor,
+      },
+      backgroundColorRipple: {
+        position: 'absolute',
+        bottom: rippleOffsetY,
+        left: rippleOffsetX,
+        width: rippleSize,
+        height: rippleSize,
+        backgroundColor: this.state.nextBgColor,
+        borderRadius: 1000,
       },
     };
 
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container, customStyles.container]} >
+
+      <Animated.View style={customStyles.backgroundColorRipple} />
 
       <View style={styles.optionsWrapper} >
 
