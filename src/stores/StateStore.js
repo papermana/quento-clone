@@ -96,6 +96,10 @@ class StateStore extends ReduceStore {
     else if (action.type === 'playTheGame') {
       return goTo(state, 'ViewPlayGame');
     }
+    else if (action.type === 'winTheGame') {
+      return state
+      .set('backgroundColor', getBackgroundColor());
+    }
     else {
       return state;
     }
