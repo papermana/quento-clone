@@ -8,6 +8,7 @@ const {
 } = require('react-native');
 const consts = require('@src/constants');
 const MyText = require('@components/MyText');
+const utils = require('@stores/boardStoreUtils');
 
 
 const _config = {
@@ -20,6 +21,8 @@ class PathDisplay extends React.Component {
 
     this.state = {
       displayText: '',
+      lastOperator: undefined,
+      sum: undefined,
       isShown: false,
       translateValue: new Animated.Value(_config.defaultVerticalOffset),
     };
@@ -31,9 +34,23 @@ class PathDisplay extends React.Component {
       return nextProps.model.board.getIn(['currentBoard', 'boardLayout', position]);
     });
     let displayText;
+    let lastOperator;
+    let sum;
 
     if (path.size > 0) {
       displayText = path.join(' ');
+
+      if (path.size >= 3) {
+        let workingPath = path;
+
+        if (utils.isOperator(workingPath.last())) {
+          lastOperator = workingPath.last();
+          workingPath = workingPath.pop();
+          displayText = workingPath.join(' ');
+        }
+
+        sum = utils.generateSum(workingPath.toJS());
+      }
     }
     else {
       displayText = '';
@@ -56,6 +73,8 @@ class PathDisplay extends React.Component {
 
     this.setState({
       displayText,
+      lastOperator,
+      sum,
     });
   }
 
@@ -88,6 +107,13 @@ class PathDisplay extends React.Component {
       <View style={[styles.container, customStyles.container]} >
         <MyText style={styles.text} xmedium >
           {this.state.displayText}
+          {
+            this.state.lastOperator &&
+            <Text style={styles.lastOperator} >
+              {' ' + this.state.lastOperator}
+            </Text>
+          }
+          {this.state.sum && ' = ' + this.state.sum}
         </MyText>
       </View>
     </Animated.View>;
@@ -115,6 +141,9 @@ const styles = StyleSheet.create({
   containerShadow: {
     backgroundColor: consts.SHADOW_COLOR,
     transform: [{translate: [4, 4]}],
+  },
+  lastOperator: {
+    color: 'rgba(0,0,0,0.15)',
   },
 });
 

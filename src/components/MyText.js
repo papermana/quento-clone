@@ -29,6 +29,12 @@ MyText.propTypes = {
   children: React.PropTypes.oneOfType([
     React.PropTypes.string,
     React.PropTypes.number,
+    React.PropTypes.node,
+    React.PropTypes.arrayOf(React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+      React.PropTypes.node,
+    ])),
   ]).isRequired,
   style: consts.PROPTYPES.STYLE,
   standard: React.PropTypes.bool,
