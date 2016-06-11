@@ -16,7 +16,7 @@ const AnimatedTouchableHighlight = Animated.createAnimatedComponent(TouchableHig
 
 
 function getHighlightColor(id) {
-  return 'rgba(80,80,225,' + (1 - 0.03 * id) + ')';
+  return 'rgba(80,80,225,' + (1 - 0.05 * id) + ')';
 }
 
 
@@ -149,6 +149,12 @@ class Board extends React.Component {
       },
       // onResponderGrant: () => actionCreators.winTheGame(),
     };
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.model.board.getIn(['currentBoard', 'boardLayout']) !== this.props.model.board.getIn(['currentBoard', 'boardLayout'])) {
+      this.rotateTiles();
+    }
   }
 
   onLayoutFunc(e) {
