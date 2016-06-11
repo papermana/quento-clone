@@ -29,6 +29,17 @@ class Star extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.solution.get('id') !== nextProps.solution.get('id')) {
+      this.state.scaleValue.setValue(1);
+
+      this.setState({
+        completed: false,
+        nextCompleted: undefined,
+      });
+
+      return;
+    }
+
     if (this.state.completed !== nextProps.solution.get('completed')) {
       this.setState({
         nextCompleted: !this.state.completed,

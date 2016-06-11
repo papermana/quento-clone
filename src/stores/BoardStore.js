@@ -3,6 +3,7 @@ const {
 } = require('flux/utils');
 const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
+const actionCreators = require('@src/actionCreators');
 const utils = require('@stores/boardStoreUtils');
 const getActiveGoal = require('@utils/getActiveGoal');
 
@@ -110,9 +111,22 @@ function selectTile(state, tileId) {
         }
 
         if (sum === goal.get('sum')) {
-          return state
+          state = state
           .setIn(['currentBoard', 'challenges', relevantChallenge.get('id'), 'solutions', goal.get('id'), 'completed'], true)
           .set('selectedPath', Immutable.List());
+
+          const allCompleted = state.getIn(['currentBoard', 'challenges'])
+          .every(challenge => {
+            return challenge.get('solutions').every(solution => {
+              return solution.get('completed');
+            });
+          });
+
+          if (allCompleted) {
+            setTimeout(() => actionCreators.winTheGame(), 500);
+          }
+
+          return state;
         }
       }
     }
@@ -142,8 +156,16 @@ class BoardStore extends ReduceStore {
   }
 
   reduce(state, action) {
-    if (action.type === 'selectTile') {
+    if (action.type === 'goBack') {
+      return state
+      .set('selectedPath', Immutable.List());
+    }
+    else if (action.type === 'selectTile') {
       return selectTile(state, action.data);
+    }
+    else if (action.type === 'winTheGame') {
+      return state
+      .set('currentBoard', utils.createNewBoard());
     }
     else {
       return state;
