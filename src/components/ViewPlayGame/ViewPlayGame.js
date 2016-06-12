@@ -84,7 +84,8 @@ class ViewPlayGame extends React.Component {
 
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container, customStyles.container]} >
 
-      <Animated.View style={customStyles.bgColorRipple} />
+      <Animated.View style={customStyles.bgColorRipple}
+        renderToHardwareTextureAndroid />
 
       <View style={styles.optionsWrapper} >
 
