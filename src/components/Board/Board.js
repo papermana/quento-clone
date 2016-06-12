@@ -29,10 +29,19 @@ class BoardTile extends React.Component {
       isHighlighted: false,
       highlightColor: 'transparent',
       rotationValue: new Animated.Value(0),
+      currentContent: this.props.children,
+      nextContent: undefined,
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    //  Because sometimes the content won't change between different board layouts, this will only happen sometimes on "victory", but not in every case:
+    if (!this.state.nextContent && nextProps.children !== this.props.children) {
+      this.setState({
+        nextContent: nextProps.children,
+      });
+    }
+
     if (nextProps.model.board.get('selectedPath').includes(this.props.tileId)) {
       const key = nextProps.model.board.get('selectedPath').keyOf(this.props.tileId);
 
@@ -54,6 +63,13 @@ class BoardTile extends React.Component {
       duration: 500,
       easing: Easing.in(Easing.sin),
     }).start(() => {
+      if (this.state.nextContent) {
+        this.setState({
+          currentContent: this.state.nextContent,
+          nextContent: undefined,
+        });
+      }
+
       this.state.rotationValue.setValue(270);
 
       Animated.timing(this.state.rotationValue, {
@@ -111,7 +127,7 @@ class BoardTile extends React.Component {
         onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} medium >
-            {this.props.children}
+            {this.state.currentContent}
           </MyText>
         </View>
       </AnimatedTouchableHighlight>
