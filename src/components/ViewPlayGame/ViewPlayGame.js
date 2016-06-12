@@ -46,7 +46,7 @@ class ViewPlayGame extends React.Component {
   animateBackgroundColorRipple() {
     Animated.timing(this.state.bgColorRippleAnim, {
       toValue: 1,
-      duration: 2000,
+      duration: 1400,
       easing: Easing.inOut(Easing.cubic),
     }).start(() => {
       this.setState({
