@@ -1,6 +1,7 @@
 const React = require('react');
 const {
   Animated,
+  Easing,
   StyleSheet,
   TouchableHighlight,
   View,
@@ -51,12 +52,14 @@ class BoardTile extends React.Component {
     Animated.timing(this.state.rotationValue, {
       toValue: 90,
       duration: 500,
+      easing: Easing.in(Easing.sin),
     }).start(() => {
       this.state.rotationValue.setValue(270);
 
       Animated.timing(this.state.rotationValue, {
         toValue: 360,
         duration: 500,
+        easing: Easing.out(Easing.sin),
       }).start(() => {
         this.state.rotationValue.setValue(0);
       });
@@ -188,7 +191,7 @@ class Board extends React.Component {
   rotateTiles() {
     this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .forEach((value, key) => {
-      setTimeout(() => this.refs['tile' + key].rotate(), key * 35);
+      setTimeout(() => this.refs['tile' + key].rotate(), key * 0);
     });
   }
 
