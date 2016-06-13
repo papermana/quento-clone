@@ -2,31 +2,12 @@ const {
   ReduceStore,
 } = require('flux/utils');
 const Immutable = require('immutable');
-const Random = require('random-js');
 const Dispatcher = require('@src/dispatcher');
 const routes = require('@src/routes');
-const consts = require('@src/constants');
+const getBackgroundColorFactory = require('@utils/getBackgroundColor');
 
 
-const getBackgroundColor = (() => {
-  const r = new Random(Random.engines.mt19937().autoSeed());
-  const defaultColors = Immutable.fromJS(consts.BACKGROUNDCOLORS);
-  let colors = defaultColors;
-
-  return function getBackgroundColor() {
-    const selectedColorId = r.integer(0, colors.size - 1);
-    const selectedColor = colors.get(selectedColorId);
-
-    colors = colors.remove(selectedColorId);
-
-    if (colors.size === 0) {
-      colors = defaultColors;
-    }
-
-    return selectedColor;
-  };
-})();
-
+const getBackgroundColor = getBackgroundColorFactory();
 
 function goBack(state) {
   const view = state.get('navStack').pop().last();

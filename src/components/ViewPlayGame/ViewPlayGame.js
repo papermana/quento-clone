@@ -2,6 +2,7 @@ const React = require('react');
 const {
   Animated,
   Dimensions,
+  Easing,
   StyleSheet,
   Text,
   View,
@@ -45,7 +46,8 @@ class ViewPlayGame extends React.Component {
   animateBackgroundColorRipple() {
     Animated.timing(this.state.bgColorRippleAnim, {
       toValue: 1,
-      duration: 2000,
+      duration: 1400,
+      easing: Easing.inOut(Easing.cubic),
     }).start(() => {
       this.setState({
         currentBgColor: this.state.nextBgColor,
@@ -58,38 +60,32 @@ class ViewPlayGame extends React.Component {
 
   render() {
     const {height: screenHeight, width: screenWidth} = Dimensions.get('window');
-    const longerEdge = screenHeight > screenWidth ? screenHeight : screenWidth;
-    const rippleSize = this.state.bgColorRippleAnim.interpolate({
+    const screenDiagonal = Math.sqrt(Math.pow(screenHeight, 2) + Math.pow(screenWidth / 2, 2));
+    const rippleScale = this.state.bgColorRippleAnim.interpolate({
       inputRange: [0, 1],
-      outputRange: [0.1, longerEdge * 1.41 * 2],
-    });
-    const rippleOffsetY = this.state.bgColorRippleAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [0, -1 * longerEdge * 1.41],
-    });
-    const rippleOffsetX = this.state.bgColorRippleAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: [screenWidth / 2, -1 * longerEdge * 1.41 + screenWidth / 2],
+      outputRange: [0.00000001, 1],
     });
 
     const customStyles = {
       container: {
         backgroundColor: this.state.currentBgColor,
       },
-      backgroundColorRipple: {
+      bgColorRipple: {
         position: 'absolute',
-        bottom: rippleOffsetY,
-        left: rippleOffsetX,
-        width: rippleSize,
-        height: rippleSize,
+        bottom: -screenDiagonal,
+        left: -screenDiagonal + screenWidth / 2,
+        width: screenDiagonal * 2,
+        height: screenDiagonal * 2,
         backgroundColor: this.state.nextBgColor,
         borderRadius: 1000,
+        transform: [{scale: rippleScale}],
       },
     };
 
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container, customStyles.container]} >
 
-      <Animated.View style={customStyles.backgroundColorRipple} />
+      <Animated.View style={customStyles.bgColorRipple}
+        renderToHardwareTextureAndroid />
 
       <View style={styles.optionsWrapper} >
 

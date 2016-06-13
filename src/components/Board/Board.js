@@ -1,6 +1,7 @@
 const React = require('react');
 const {
   Animated,
+  Easing,
   StyleSheet,
   TouchableHighlight,
   View,
@@ -28,10 +29,19 @@ class BoardTile extends React.Component {
       isHighlighted: false,
       highlightColor: 'transparent',
       rotationValue: new Animated.Value(0),
+      currentContent: this.props.children,
+      nextContent: undefined,
     };
   }
 
   componentWillReceiveProps(nextProps) {
+    //  Because sometimes the content won't change between different board layouts, this will only happen sometimes on "victory", but not in every case:
+    if (!this.state.nextContent && nextProps.children !== this.props.children) {
+      this.setState({
+        nextContent: nextProps.children,
+      });
+    }
+
     if (nextProps.model.board.get('selectedPath').includes(this.props.tileId)) {
       const key = nextProps.model.board.get('selectedPath').keyOf(this.props.tileId);
 
@@ -51,12 +61,21 @@ class BoardTile extends React.Component {
     Animated.timing(this.state.rotationValue, {
       toValue: 90,
       duration: 500,
+      easing: Easing.in(Easing.sin),
     }).start(() => {
+      if (this.state.nextContent) {
+        this.setState({
+          currentContent: this.state.nextContent,
+          nextContent: undefined,
+        });
+      }
+
       this.state.rotationValue.setValue(270);
 
       Animated.timing(this.state.rotationValue, {
         toValue: 360,
         duration: 500,
+        easing: Easing.out(Easing.sin),
       }).start(() => {
         this.state.rotationValue.setValue(0);
       });
@@ -108,7 +127,7 @@ class BoardTile extends React.Component {
         onPress={() => {}} >
         <View style={[styles.tile, darkerShade && styles.tileDarkerShade, this.state.isHighlighted && customStyles.highlight]} >
           <MyText style={styles.tileText} medium >
-            {this.props.children}
+            {this.state.currentContent}
           </MyText>
         </View>
       </AnimatedTouchableHighlight>
@@ -142,12 +161,12 @@ class Board extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
-      onResponderGrant: this.selectTile.bind(this),
-      onResponderMove: this.selectTile.bind(this),
-      onResponderRelease: () => {
-        this.swipe = undefined;
-      },
-      // onResponderGrant: () => actionCreators.winTheGame(),
+      // onResponderGrant: this.selectTile.bind(this),
+      // onResponderMove: this.selectTile.bind(this),
+      // onResponderRelease: () => {
+      //   this.swipe = undefined;
+      // },
+      onResponderGrant: () => actionCreators.winTheGame(),
     };
   }
 
@@ -188,7 +207,7 @@ class Board extends React.Component {
   rotateTiles() {
     this.props.model.board.getIn(['currentBoard', 'boardLayout'])
     .forEach((value, key) => {
-      setTimeout(() => this.refs['tile' + key].rotate(), key * 35);
+      setTimeout(() => this.refs['tile' + key].rotate(), key * 0);
     });
   }
 

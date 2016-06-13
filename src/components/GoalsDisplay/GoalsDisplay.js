@@ -123,16 +123,46 @@ StarsWrapper.propTypes = {
 class Goal extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = this.getNewState(this.props);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    const newState = this.getNewState(nextProps);
+
+    if (this.props.model.board.getIn(['currentBoard', 'boardLayout']) !== nextProps.model.board.getIn(['currentBoard', 'boardLayout'])) {
+      setTimeout(() => this.setState(newState), 750);
+
+      return;
+    }
+
+    setTimeout(() => this.setState(newState), 250);
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    if (nextState.activeGoal !== this.state.activeGoal) {
+      return true;
+    }
+
+    return false;
+  }
+
+  getNewState(props) {
+    const challenge = props.model.board.
+    getIn(['currentBoard', 'challenges', props.challengeId]);
+
+    return {
+      challenge,
+      activeGoal: getActiveGoal(challenge),
+    };
   }
 
   render() {
-    const challenge = this.props.model.board
-    .getIn(['currentBoard', 'challenges', this.props.challengeId]);
     const length = {
       3: 2,
       5: 3,
-    }[challenge.get('length')];
-    const goal = getActiveGoal(challenge);
+    }[this.state.challenge.get('length')];
+    const goal = this.state.activeGoal;
 
     return <View style={styles.goal} >
       <View style={styles.textSumWrapper} >
