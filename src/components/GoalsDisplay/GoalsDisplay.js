@@ -136,7 +136,7 @@ class Goal extends React.Component {
       return;
     }
 
-    this.setState(newState);
+    setTimeout(() => this.setState(newState), 250);
   }
 
   shouldComponentUpdate(nextProps, nextState) {
