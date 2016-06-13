@@ -19,6 +19,8 @@ const actionCreators = {};
   'endTransition',
   'playTheGame',
   'selectTile',
+  'deselectTile',
+  'completeChallenge',
   'winTheGame',
 ]
 .forEach(string => createAction(string));

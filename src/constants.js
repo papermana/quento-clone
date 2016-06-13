@@ -10,6 +10,7 @@ const IMMUTABLE_OBJECT = React.PropTypes.instanceOf(Immutable.Map);
 const constants = {
   STATUSBAR_HEIGHT: 24,
   SHADOW_COLOR: 'rgba(0,0,0,0.4)',
+  BOARD_PADDING: 20,
 };
 
 constants.PROPTYPES = {
