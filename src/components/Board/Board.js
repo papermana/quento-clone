@@ -6,6 +6,7 @@ const {
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
 const BoardTile = require('./BoardTile');
+const selectTile = require('./selectTile');
 
 
 class Board extends React.Component {
@@ -24,8 +25,8 @@ class Board extends React.Component {
       onStartShouldSetResponderCapture: () => true,
       onMoveShouldSetResponder: () => true,
       onMoveShouldSetResponderCapture: () => true,
-      onResponderGrant: this.selectTile.bind(this),
-      onResponderMove: this.selectTile.bind(this),
+      onResponderGrant: this.onTouchFunc.bind(this),
+      onResponderMove: this.onTouchFunc.bind(this),
       onResponderRelease: () => {
         this.swipe = undefined;
       },
@@ -48,22 +49,22 @@ class Board extends React.Component {
     });
   }
 
-  selectTile(e) {
+  onTouchFunc(e) {
     const X = e.nativeEvent.pageX - this.position.x;
     const Y = e.nativeEvent.pageY - this.position.y;
     const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
-    const path = this.props.model.board.get('selectedPath');
+    // const path = this.props.model.board.get('selectedPath');
 
-    if (this.swipe && path.size === 0) {
-      return;
-    }
+    // if (this.swipe && path.size === 0) {
+    //   return;
+    // }
 
     if (!this.swipe || this.swipe.lastId !== id) {
       this.swipe = {
         lastId: id,
       };
 
-      actionCreators.selectTile(id);
+      selectTile(this.props.model.board, id);
     }
   }
 
