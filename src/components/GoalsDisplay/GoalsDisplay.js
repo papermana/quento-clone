@@ -209,7 +209,7 @@ GoalsDisplay.propTypes = {
 
 const styles = StyleSheet.create({
   goalWrapper: {
-    marginVertical: 8,
+    marginTop: 20,
     flexDirection: 'row',
   },
   goal: {
