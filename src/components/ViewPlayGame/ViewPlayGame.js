@@ -87,10 +87,6 @@ class ViewPlayGame extends React.Component {
       <Animated.View style={customStyles.bgColorRipple}
         renderToHardwareTextureAndroid />
 
-      <View style={styles.optionsWrapper} >
-
-      </View>
-
       <View style={styles.logoWrapper} >
         <MyText style={styles.logoText} large logo >
           {'Quento\nClone'}
@@ -123,7 +119,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     flex: 1,
     alignItems: 'center',
-    backgroundColor: 'purple',
+    justifyContent: 'center',
   },
   pathDisplayWrapper: {
     position: 'absolute',

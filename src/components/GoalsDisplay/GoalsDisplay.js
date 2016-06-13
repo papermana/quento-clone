@@ -209,7 +209,7 @@ GoalsDisplay.propTypes = {
 
 const styles = StyleSheet.create({
   goalWrapper: {
-    marginVertical: 8,
+    marginTop: 15,
     flexDirection: 'row',
   },
   goal: {
@@ -217,10 +217,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   textSumWrapper: {
-    height: 40,
+    // height: 40,
   },
   textLengthWrapper: {
-    height: 20,
+    // height: 20,
   },
   starsWrapper: {
     flexDirection: 'row',
