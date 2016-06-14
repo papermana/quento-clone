@@ -49,31 +49,30 @@ constants.STYLES = StyleSheet.create({
   },
 });
 
-constants.MAINMENU_BACKGROUNDCOLOR = 'rgb(255,245,25)';
+// constants.MAINMENU_BACKGROUNDCOLOR = 'rgb(255,245,25)';
+constants.MAINMENU_BACKGROUNDCOLOR = '#f0ea42';
 
 constants.BACKGROUNDCOLORS = [
-  //  light green:
-  '#6dde21',
-  //  green:
-  // '#46b998',
-  //  turquoise:
-  '#46b998',
-  //  light blue:
-  '#84b7b8',
   //  sky blue:
-  '#2da3d2',
-  //  blue:
-  '#1d62e2',
-  //  purple
-  '#a249b6',
-  //  fuchsia:
-  '#f391e2',
+  '#96c7e9',
+  //  turquoise:
+  '#96e9da',
+  //  blueish green:
+  '#96e9c2',
+  //  green:
+  '#96e99c',
+  //  yellowish green:
+  '#c9e996',
+  //  light brown:
+  '#e9bc96',
+  //  red:
+  '#e99696',
   //  pink:
-  '#f00f69',
-  //  red
-  '#c74638',
-  //  yellow:
-  '#f4dc0b',
+  '#e996bc',
+  //  fuchsia:
+  '#e996db',
+  //  purple:
+  '#c596e9',
 ];
 
 
