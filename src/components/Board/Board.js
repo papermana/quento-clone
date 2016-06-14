@@ -1,6 +1,7 @@
 const React = require('react');
 const {
   StyleSheet,
+  Vibration,
   View,
 } = require('react-native');
 const consts = require('@src/constants');
@@ -18,7 +19,9 @@ class Board extends React.Component {
       y: undefined,
     };
 
-    this.swipe = undefined;
+    this.touch = undefined;
+
+    this.doOnRelease = [];
 
     this.responders = {
       onStartShouldSetResponder: () => true,
@@ -28,7 +31,20 @@ class Board extends React.Component {
       onResponderGrant: this.onTouchFunc.bind(this),
       onResponderMove: this.onTouchFunc.bind(this),
       onResponderRelease: () => {
-        this.swipe = undefined;
+        //  Deselect everything on long press:
+        if (!this.touch.swipe && Date.now() - this.touch.timeStamp > 1000) {
+          Vibration.vibrate([0, 10, 25]);
+
+          actionCreators.deselectTile(0);
+        }
+        //  Otherwise if it's a tap and `selectTile` decided it needed to do something on release (like deselect just one tile, for instance), do it now:
+        else if (this.doOnRelease.length > 0) {
+          this.doOnRelease.forEach(callback => callback());
+
+          this.doOnRelease = [];
+        }
+
+        this.touch = undefined;
       },
       // onResponderGrant: () => actionCreators.winTheGame(),
     };
@@ -59,12 +75,25 @@ class Board extends React.Component {
     //   return;
     // }
 
-    if (!this.swipe || this.swipe.lastId !== id) {
-      this.swipe = {
+    if (!this.touch) {
+      this.touch = {
         lastId: id,
+        timeStamp: Date.now(),
       };
 
-      selectTile(this.props.model.board, id);
+      selectTile(this.props.model.board, id, this.touch, doOnRelease.bind(this));
+    }
+    else if (this.touch.lastId !== id) {
+      this.touch = {
+        lastId: id,
+        swipe: true,
+      };
+
+      selectTile(this.props.model.board, id, this.touch, doOnRelease.bind(this));
+    }
+
+    function doOnRelease(callback) {
+      this.doOnRelease.push(callback);
     }
   }
 

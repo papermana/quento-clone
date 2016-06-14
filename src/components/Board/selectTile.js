@@ -3,7 +3,7 @@ const utils = require('@stores/boardStoreUtils');
 const getActiveGoal = require('@utils/getActiveGoal');
 
 
-function selectTile(boardModel, tileId) {
+function selectTile(boardModel, tileId, touchObject, doOnRelease) {
   const maxPathLength = boardModel.getIn(['currentBoard', 'challenges'])
   .max((chalA, chalB) => chalA.get('length') - chalB.get('length'))
   .get('length');
@@ -24,11 +24,20 @@ function selectTile(boardModel, tileId) {
     const lastOccurence = selectedPathPositions
     .keyOf(tileId);
 
-    if (lastOccurence < selectedPathPositions.size - 1) {
-      actionCreators.deselectTile(lastOccurence + 1);
+    const action = () => {
+      if (lastOccurence < selectedPathPositions.size - 1) {
+        actionCreators.deselectTile(lastOccurence + 1);
+      }
+      else {
+        actionCreators.deselectTile(lastOccurence);
+      }
+    };
+
+    if (touchObject.swipe) {
+      action();
     }
     else {
-      actionCreators.deselectTile(lastOccurence);
+      doOnRelease(action);
     }
 
     return;
