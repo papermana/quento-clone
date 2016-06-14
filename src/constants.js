@@ -53,25 +53,25 @@ constants.MAINMENU_BACKGROUNDCOLOR = '#f0ea42';
 
 constants.BACKGROUNDCOLORS = [
   //  sky blue:
-  '#93c7ec',
+  '#b8def9',
   //  turquoise:
-  '#93ecdc',
+  '#b8f9ed',
   //  blueish green:
-  '#93ecc2',
+  '#b8f9db',
   //  green:
-  '#93ec99',
+  '#b8f9bd',
   //  yellowish green:
-  '#caec93',
+  '#e0f9b8',
   //  light brown:
-  '#ecbb93',
+  '#f9d5b8',
   //  red:
-  '#ec9393',
+  '#f9b8b8',
   //  pink:
-  '#ec93bb',
+  '#f9b8d5',
   //  fuchsia:
-  '#ec93dd',
+  '#f9b8ee',
   //  purple:
-  '#c593ec',
+  '#ddb8f9',
 ];
 
 
