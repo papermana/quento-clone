@@ -1,16 +1,23 @@
 const React = require('react');
 const {
+  Platform,
   StyleSheet,
 } = require('react-native');
 const Immutable = require('immutable');
 
 
-const IMMUTABLE_OBJECT = React.PropTypes.instanceOf(Immutable.Map);
-
 const constants = {
-  STATUSBAR_HEIGHT: 24,
   SHADOW_COLOR: 'rgba(0,0,0,0.4)',
 };
+
+if (Platform.Version >= 21) {
+  constants.STATUSBAR_HEIGHT = 24;
+}
+else {
+  constants.STATUSBAR_HEIGHT = 0;
+}
+
+const IMMUTABLE_OBJECT = React.PropTypes.instanceOf(Immutable.Map);
 
 constants.PROPTYPES = {
   MODEL: React.PropTypes.shape({
