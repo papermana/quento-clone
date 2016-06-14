@@ -31,14 +31,8 @@ class Board extends React.Component {
       onResponderGrant: this.onTouchFunc.bind(this),
       onResponderMove: this.onTouchFunc.bind(this),
       onResponderRelease: () => {
-        //  Deselect everything on long press:
-        if (!this.touch.swipe && Date.now() - this.touch.timeStamp > 1000) {
-          Vibration.vibrate([0, 10, 25]);
-
-          actionCreators.deselectTile(0);
-        }
-        //  Otherwise if it's a tap and `selectTile` decided it needed to do something on release (like deselect just one tile, for instance), do it now:
-        else if (this.doOnRelease.length > 0) {
+        //  If it's a tap and `selectTile` decided it needed to do something on release (like deselect just one tile, for instance), do it now:
+        if (this.doOnRelease.length > 0) {
           this.doOnRelease.forEach(callback => callback());
 
           this.doOnRelease = [];
@@ -69,7 +63,7 @@ class Board extends React.Component {
     const X = e.nativeEvent.pageX - this.position.x;
     const Y = e.nativeEvent.pageY - this.position.y;
     const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
-    // const path = this.props.model.board.get('selectedPath');
+    const path = this.props.model.board.get('selectedPath');
 
     // if (this.swipe && path.size === 0) {
     //   return;
@@ -78,8 +72,11 @@ class Board extends React.Component {
     if (!this.touch) {
       this.touch = {
         lastId: id,
-        timeStamp: Date.now(),
       };
+
+      if (path.size !== 0) {
+        this.setLongPress();
+      }
 
       selectTile(this.props.model.board, id, this.touch, doOnRelease.bind(this));
     }
@@ -94,6 +91,23 @@ class Board extends React.Component {
 
     function doOnRelease(callback) {
       this.doOnRelease.push(callback);
+    }
+  }
+
+  setLongPress() {
+    if (this._setLongPress) {
+      clearTimeout(this._setLongPress);
+    }
+
+    this._setLongPress = setTimeout(this.onLongPressFunc.bind(this), 750);
+  }
+
+  onLongPressFunc() {
+    //  Deselect everything on long press:
+    if (this.touch && !this.touch.swipe) {
+      Vibration.vibrate([0, 10, 25]);
+
+      actionCreators.deselectTile(0);
     }
   }
 
