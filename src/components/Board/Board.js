@@ -74,7 +74,7 @@ class Board extends React.Component {
         lastId: id,
       };
 
-      if (path.size !== 0) {
+      if (path.size > 1 && path.last() === id) {
         this.setLongPress();
       }
 
