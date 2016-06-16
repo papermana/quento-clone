@@ -24,6 +24,7 @@ const actionCreators = {};
   'winTheGame',
   'turnSoundOn',
   'turnSoundOff',
+  'readConfig',
 ]
 .forEach(string => createAction(string));
 

@@ -2,6 +2,7 @@ const {
   ReduceStore,
 } = require('flux/utils');
 const {
+  AsyncStorage,
   Vibration,
 } = require('react-native');
 const Immutable = require('immutable');
@@ -9,6 +10,7 @@ const Dispatcher = require('@src/dispatcher');
 const routes = require('@src/routes');
 const getBackgroundColorFactory = require('@utils/getBackgroundColor');
 const Sound = require('react-native-sound');
+const actionCreators = require('@src/actionCreators');
 
 
 const getBackgroundColor = getBackgroundColorFactory();
@@ -56,6 +58,21 @@ function endTransition(state) {
   }
 }
 
+function getConfig() {
+  AsyncStorage.getItem('config')
+  .then(result => {
+    if (result === null) {
+      return;
+    }
+
+    actionCreators.readConfig(JSON.parse(result));
+  });
+}
+
+function saveConfig(state) {
+  AsyncStorage.setItem('config', JSON.stringify(state.get('config').toJS()));
+}
+
 
 class StateStore extends ReduceStore {
   getInitialState() {
@@ -73,11 +90,17 @@ class StateStore extends ReduceStore {
     state = state
     .set('navStack', state.get('navStack').push(routes[routes.default]));
 
+    getConfig();
+
     return state;
   }
 
   reduce(state, action) {
-    if (action.type === 'goBack') {
+    if (action.type === 'readConfig') {
+      return state
+      .set('config', Immutable.fromJS(action.data));
+    }
+    else if (action.type === 'goBack') {
       return goBack(state);
     }
     else if (action.type === 'endTransition') {
@@ -103,12 +126,20 @@ class StateStore extends ReduceStore {
       .set('backgroundColor', getBackgroundColor());
     }
     else if (action.type === 'turnSoundOff') {
-      return state
+      state = state
       .setIn(['config', 'soundOn'], false);
+
+      saveConfig(state);
+
+      return state;
     }
     else if (action.type === 'turnSoundOn') {
-      return state
+      state = state
       .setIn(['config', 'soundOn'], true);
+
+      saveConfig(state);
+
+      return state;
     }
     else {
       return state;
