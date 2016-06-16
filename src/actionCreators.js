@@ -16,7 +16,6 @@ const actionCreators = {};
 
 [
   'goBack',
-  'endTransition',
   'playTheGame',
   'selectTile',
   'deselectTile',

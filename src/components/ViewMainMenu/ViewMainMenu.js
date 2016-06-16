@@ -15,12 +15,6 @@ class ViewMainMenu extends React.Component {
     super(props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.nextState) {
-      actionCreators.endTransition();
-    }
-  }
-
   render() {
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
 

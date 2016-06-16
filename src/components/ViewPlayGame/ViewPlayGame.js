@@ -29,12 +29,6 @@ class ViewPlayGame extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.nextState) {
-      actionCreators.endTransition();
-
-      return;
-    }
-
     if (!this.state.nextBgColor && this.props.model.state.get('backgroundColor') !== nextProps.model.state.get('backgroundColor')) {
 
       this.setState({

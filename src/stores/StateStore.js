@@ -18,11 +18,8 @@ const getBackgroundColor = getBackgroundColorFactory();
 const selectTileSound = new Sound('select_tile_sound.ogg', Sound.MAIN_BUNDLE);
 
 function goBack(state) {
-  const view = state.get('navStack').pop().last();
-
   return state
-  .set('nextState', view)
-  .set('goingBack', true);
+  .set('navStack', state.get('navStack').pop());
 }
 
 function goTo(state, view) {
@@ -31,30 +28,7 @@ function goTo(state, view) {
   }
   else {
     return state
-    .set('nextState', routes[view]);
-  }
-}
-
-function endTransition(state) {
-  if (!state.get('nextState')) {
-    return state;
-  }
-
-  if (!state.get('goingBack')) {
-    return state
-    .set('navStack', state.get('navStack').push(state.get('nextState')))
-    .set('nextState', undefined);
-  }
-
-  if (state.get('navStack').size > 1) {
-    return state
-    .set('navStack', state.get('navStack').pop())
-    .set('nextState', undefined)
-    .set('goingBack', undefined);
-  }
-  else {
-    return state
-    .set('goingBack', undefined);
+    .set('navStack', state.get('navStack').push(routes[view]));
   }
 }
 
@@ -78,8 +52,6 @@ class StateStore extends ReduceStore {
   getInitialState() {
     let state = Immutable.fromJS({
       navStack: [],
-      nextState: undefined,
-      goingBack: undefined,
       backgroundColor: getBackgroundColor(),
       config: {
         soundOn: true,
@@ -102,9 +74,6 @@ class StateStore extends ReduceStore {
     }
     else if (action.type === 'goBack') {
       return goBack(state);
-    }
-    else if (action.type === 'endTransition') {
-      return endTransition(state);
     }
     else if (action.type === 'playTheGame') {
       return goTo(state, 'ViewPlayGame');

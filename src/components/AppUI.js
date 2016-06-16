@@ -23,16 +23,9 @@ class AppUI extends React.Component {
 
   componentDidMount() {
     BackAndroid.addEventListener('hardwareBackPress', () => {
-      // We're currently transitioning to another view, so disregard the action:
-      if (this.props.model.state.get('nextState')) {
-        return true;
-      }
-
-      const stackSize = this.props.model.state.get('navStack').size;
-
       actionCreators.goBack();
 
-      if (stackSize > 1) {
+      if (this.props.model.state.get('navStack').size > 1) {
         return true;
       }
       else {
@@ -71,6 +64,8 @@ class AppUI extends React.Component {
   render() {
     const dimensions = this.state.containerDimensions;
 
+    const CurrentView = this.props.model.state.get('navStack').last();
+
     const styles = {
       container: {
         opacity: this.state.containerOpacity,
@@ -84,34 +79,22 @@ class AppUI extends React.Component {
       },
     };
 
-    const CurrentView = this.props.model.state && this.props.model.state.get('navStack').last();
-    let PreviousView;
-
-    // if (this.props.model.state.get('navStack').size > 1) {
-    //   PreviousView = this.props.model.state.get('navStack').pop().last();
-    // }
-
     return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]}
       onLayout={this.onLayoutFunc.bind(this)} >
       <StatusBar
         backgroundColor="rgba(0,0,0,0.2)"
         translucent />
-
-      {
-        PreviousView &&
-        <View style={styles.view} >
-          <PreviousView.component model={this.props.model} />
-        </View>
-      }
       <View style={styles.view} >
         <CurrentView.component
-          model={this.props.model}
-          nextState={this.props.model.state.get('nextState')}
-          navStack={this.props.model.state.get('navStack')} />
+          model={this.props.model} />
       </View>
     </Animated.View>;
   }
 }
+
+AppUI.propTypes = {
+  model: consts.PROPTYPES.MODEL.isRequired,
+};
 
 
 module.exports = AppUI;
