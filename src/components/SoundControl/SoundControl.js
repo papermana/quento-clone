@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     margin: 6,
-    opacity: 0.65,
+    opacity: 0.45,
   },
 });
 
