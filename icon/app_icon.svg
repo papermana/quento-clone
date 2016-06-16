@@ -41,7 +41,71 @@
        fy="886.36212"
        r="76"
        gradientUnits="userSpaceOnUse"
-       gradientTransform="matrix(-1.9382665e-7,1.9999997,-1.9999998,-1.9382666e-7,1792.724,1381.648)" />
+       gradientTransform="matrix(-1.9382665e-7,1.9999997,-1.9999998,-1.9382666e-7,1792.724,1381.6479)" />
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4166">
+      <feFlood
+         flood-opacity="0.203922"
+         flood-color="rgb(191,54,12)"
+         result="flood"
+         id="feFlood4168" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4170" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="16"
+         result="blur"
+         id="feGaussianBlur4172" />
+      <feOffset
+         dx="0"
+         dy="16"
+         result="offset"
+         id="feOffset4174" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4176" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB;"
+       inkscape:label="Drop Shadow"
+       id="filter4244">
+      <feFlood
+         flood-opacity="0.203922"
+         flood-color="rgb(191,54,12)"
+         result="flood"
+         id="feFlood4246" />
+      <feComposite
+         in="flood"
+         in2="SourceGraphic"
+         operator="in"
+         result="composite1"
+         id="feComposite4248" />
+      <feGaussianBlur
+         in="composite1"
+         stdDeviation="4"
+         result="blur"
+         id="feGaussianBlur4250" />
+      <feOffset
+         dx="0"
+         dy="4"
+         result="offset"
+         id="feOffset4252" />
+      <feComposite
+         in="SourceGraphic"
+         in2="offset"
+         operator="over"
+         result="composite2"
+         id="feComposite4254" />
+    </filter>
   </defs>
   <sodipodi:namedview
      id="base"
@@ -50,9 +114,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="1.979899"
-     inkscape:cx="38.497026"
-     inkscape:cy="88.703982"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="-80.845604"
+     inkscape:cy="-0.92121375"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -97,47 +161,44 @@
            y="215.21935"
            style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-family:'Work Sans';-inkscape-font-specification:'Work Sans'" /></flowRegion><flowPara
          id="flowPara4142" /></flowRoot>    <g
-       id="g4242"
-       transform="translate(0,-1.9345703e-5)">
-      <g
-         transform="translate(0,-2.1308594e-5)"
-         id="g4222">
-        <rect
-           style="opacity:1;fill:#fff519;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
-           id="rect4152-1"
-           width="152"
-           height="152"
-           x="20"
-           y="880.36218"
-           rx="8"
-           ry="8" />
-        <path
-           style="opacity:1;fill:#ffffff;fill-opacity:0.2;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
-           d="m 28,880.36218 c -4.432,0 -8,3.568 -8,8 l 0,4 c 0,-4.432 3.568,-8 8,-8 l 136,0 c 4.432,0 8,3.568 8,8 l 0,-4 c 0,-4.432 -3.568,-8 -8,-8 l -136,0 z"
-           id="rect4152-2"
-           inkscape:connector-curvature="0" />
-      </g>
+       id="g4239"
+       transform="translate(0,-2.1308594e-5)"
+       style="filter:url(#filter4244)">
+      <rect
+         ry="8"
+         rx="8"
+         y="880.36218"
+         x="20"
+         height="152"
+         width="152"
+         id="rect4152-1-9-6"
+         style="opacity:1;fill:#fff519;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2" />
       <path
          inkscape:connector-curvature="0"
-         id="rect4152-1-1-2"
-         d="m 20,1020.3622 0,4 c 0,4.432 3.568,8 8,8 l 136,0 c 4.432,0 8,-3.568 8,-8 l 0,-4 c 0,4.432 -3.568,8 -8,8 l -136,0 c -4.432,0 -8,-3.568 -8,-8 z"
+         id="rect4152-1-9-9-2"
+         d="m 20.000002,1023.3175 0,1 c 0,4.432 3.568,8 8,8 l 135.999998,0 c 4.432,0 8,-3.568 8,-8 l 0,-1 c 0,4.432 -3.568,8 -8,8 l -135.999998,0 c -4.432,0 -8,-3.568 -8,-8 z"
          style="opacity:1;fill:#bf360c;fill-opacity:0.2;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2" />
+      <path
+         inkscape:connector-curvature="0"
+         id="rect4152-1-0"
+         d="m 28,880.36218 c -4.432,0 -8,3.568 -8,8 l 0,1 c 0,-4.432 3.568,-8 8,-8 l 136,0 c 4.432,0 8,3.568 8,8 l 0,-1 c 0,-4.432 -3.568,-8 -8,-8 l -136,0 z"
+         style="opacity:1;fill:#ffffff;fill-opacity:0.2;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2" />
     </g>
     <text
        xml:space="preserve"
-       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;"
-       x="35.607891"
-       y="977.73712"
+       style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-size:90px;line-height:125%;font-family:'Work Sans';-inkscape-font-specification:'Work Sans Light';letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       x="38.99836"
+       y="977.73718"
        id="text4345"
        sodipodi:linespacing="125%"><tspan
          sodipodi:role="line"
-         x="35.607891"
-         y="977.73712"
+         x="38.99836"
+         y="977.73718"
          id="tspan4347"><tspan
-           x="35.607891"
-           y="977.73712"
+           x="38.99836"
+           y="977.73718"
            id="tspan4349"
-           style="-inkscape-font-specification:'Work Sans Light';font-family:'Work Sans';font-weight:300;font-style:normal;font-stretch:normal;font-variant:normal;fill:#000000;fill-opacity:1;">Qu</tspan></tspan></text>
+           style="font-style:normal;font-variant:normal;font-weight:300;font-stretch:normal;font-family:'Work Sans';-inkscape-font-specification:'Work Sans Light';fill:#000000;fill-opacity:1">Qu</tspan></tspan></text>
     <rect
        style="opacity:1;fill:url(#radialGradient4305);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:4;stroke-linecap:square;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:0.2"
        id="rect4152-1-7"
