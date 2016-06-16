@@ -5,7 +5,6 @@ const {
   StatusBar,
   View,
 } = require('react-native');
-const Immutable = require('immutable');
 const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
 
@@ -15,7 +14,6 @@ class AppUI extends React.Component {
     super(props);
 
     this.state = {
-      containerDimensions: undefined,
       hasAppeared: false,
       containerOpacity: new Animated.Value(0),
     };
@@ -35,7 +33,7 @@ class AppUI extends React.Component {
   }
 
   componentWillUpdate(nextProps, nextState) {
-    if (nextState.containerDimensions && !nextState.hasAppeared) {
+    if (!nextState.hasAppeared) {
       Animated.timing(nextState.containerOpacity, {
         toValue: 1,
         duration: 200,
@@ -47,23 +45,7 @@ class AppUI extends React.Component {
     }
   }
 
-  onLayoutFunc(e) {
-    const newLayout = e.nativeEvent.layout;
-
-    if (
-      !this.state.containerDimensions ||
-      newLayout.width !== this.state.containerDimensions.width ||
-      newLayout.height !== this.state.containerDimensions.height
-    ) {
-      this.setState({
-        containerDimensions: newLayout,
-      });
-    }
-  }
-
   render() {
-    const dimensions = this.state.containerDimensions;
-
     const CurrentView = this.props.model.state.get('navStack').last();
 
     const styles = {
@@ -71,16 +53,11 @@ class AppUI extends React.Component {
         opacity: this.state.containerOpacity,
       },
       view: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: dimensions && dimensions.width,
-        height: dimensions && dimensions.height,
+        flex: 1,
       },
     };
 
-    return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]}
-      onLayout={this.onLayoutFunc.bind(this)} >
+    return <Animated.View style={[consts.STYLES.APP_CONTAINER, styles.container]} >
       <StatusBar
         backgroundColor="rgba(0,0,0,0.2)"
         translucent />

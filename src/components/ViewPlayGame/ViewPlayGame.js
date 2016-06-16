@@ -3,18 +3,15 @@ const {
   Animated,
   Dimensions,
   Easing,
-  Image,
   StyleSheet,
-  Text,
   View,
 } = require('react-native');
 const consts = require('@src/constants');
-const actionCreators = require('@src/actionCreators');
 const MyText = require('@components/MyText');
-const Board = require('@components/Board');
-const GoalsDisplay = require('@components/GoalsDisplay');
-const PathDisplay = require('@components/PathDisplay');
 const SoundControl = require('@components/SoundControl');
+const GoalsDisplay = require('@components/GoalsDisplay');
+const Board = require('@components/Board');
+const PathDisplay = require('@components/PathDisplay');
 
 
 class ViewPlayGame extends React.Component {
@@ -79,32 +76,25 @@ class ViewPlayGame extends React.Component {
     };
 
     return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container, customStyles.container]} >
-
       <Animated.View style={customStyles.bgColorRipple}
         renderToHardwareTextureAndroid />
-
       <View style={styles.options} >
         <SoundControl model={this.props.model} />
       </View>
-
       <View style={styles.logoWrapper} >
-        <MyText style={styles.logoText} large logo >
+        <MyText large logo style={styles.logoText} >
           {'Quento\nClone'}
         </MyText>
       </View>
-
       <View style={styles.goalsWrapper} >
         <GoalsDisplay model={this.props.model} />
       </View>
-
       <View style={styles.boardWrapper} >
         <Board model={this.props.model} />
       </View>
-
       <View style={styles.pathDisplayWrapper} >
         <PathDisplay model={this.props.model} />
       </View>
-
     </View>;
   }
 }
