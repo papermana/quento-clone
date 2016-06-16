@@ -50,8 +50,8 @@ class Board extends React.Component {
   }
 
   onTouchFunc(e) {
-    const X = e.nativeEvent.pageX - this.position.x;
-    const Y = e.nativeEvent.pageY - this.position.y;
+    const X = e.nativeEvent.pageX - this.position.x - consts.BOARD_PADDING;
+    const Y = e.nativeEvent.pageY - this.position.y - consts.BOARD_PADDING;
     const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
     // const path = this.props.model.board.get('selectedPath');
 
