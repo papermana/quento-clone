@@ -31,7 +31,9 @@ class SoundControl extends React.Component {
     return <TouchableHighlight
       underlayColor={'rgba(0,0,0,0.1)'}
       onPress={this.pressFunc.bind(this)} >
-      <Image source={source} style={styles.image} />
+      <View>
+        <Image source={source} style={styles.image} />
+      </View>
     </TouchableHighlight>;
   }
 }
@@ -46,6 +48,7 @@ const styles = StyleSheet.create({
     width: 24,
     height: 24,
     margin: 6,
+    opacity: 0.65,
   },
 });
 
