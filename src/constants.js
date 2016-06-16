@@ -8,6 +8,7 @@ const Immutable = require('immutable');
 
 const constants = {
   SHADOW_COLOR: 'rgba(0,0,0,0.4)',
+  BOARD_PADDING: 20,
 };
 
 if (Platform.Version >= 21) {

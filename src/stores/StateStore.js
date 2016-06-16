@@ -1,6 +1,9 @@
 const {
   ReduceStore,
 } = require('flux/utils');
+const {
+  Vibration,
+} = require('react-native');
 const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
 const routes = require('@src/routes');
@@ -76,6 +79,11 @@ class StateStore extends ReduceStore {
     }
     else if (action.type === 'playTheGame') {
       return goTo(state, 'ViewPlayGame');
+    }
+    else if (action.type === 'completeChallenge') {
+      Vibration.vibrate([0, 15]);
+
+      return state;
     }
     else if (action.type === 'winTheGame') {
       return state
