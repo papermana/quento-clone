@@ -49,6 +49,10 @@ class BoardTile extends React.Component {
     }
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return (this.props.model.board.get('selectedPath') !== nextProps.model.board.get('selectedPath')) || (this.props.children !== nextProps.children);
+  }
+
   getHighlightColor(id) {
     return 'rgba(80,80,225,' + (1 - 0.05 * id) + ')';
   }

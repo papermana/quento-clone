@@ -76,6 +76,10 @@ class PathDisplay extends React.Component {
     });
   }
 
+  shouldComponentUpdate(nextProps, nextState) {
+    return this.props.model.board.get('selectedPath') !== nextProps.model.board.get('selectedPath');
+  }
+
   hideAnimation() {
     Animated.timing(this.state.translateValue, {
       toValue: DEFAULT_VERTICAL_OFFSET,
