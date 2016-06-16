@@ -113,7 +113,7 @@ class PathDisplay extends React.Component {
               {' ' + this.state.lastOperator}
             </Text>
           }
-          {this.state.sum && ' = ' + this.state.sum}
+          {(this.state.sum || this.state.sum === 0) && ' = ' + this.state.sum}
         </MyText>
       </View>
     </Animated.View>;
