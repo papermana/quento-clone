@@ -42,7 +42,7 @@ MyText.propTypes = {
 
 const styles = StyleSheet.create({
   myText: {
-    fontFamily: 'WorkSans-Regular',
+    fontFamily: 'WorkSans-Light',
     color: 'rgba(0,0,0,0.9)',
   },
   standard: {
