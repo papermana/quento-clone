@@ -3,6 +3,7 @@ const {
   Animated,
   Dimensions,
   Easing,
+  Image,
   StyleSheet,
   Text,
   View,
@@ -13,6 +14,7 @@ const MyText = require('@components/MyText');
 const Board = require('@components/Board');
 const GoalsDisplay = require('@components/GoalsDisplay');
 const PathDisplay = require('@components/PathDisplay');
+const SoundControl = require('@components/SoundControl');
 
 
 class ViewPlayGame extends React.Component {
@@ -87,6 +89,10 @@ class ViewPlayGame extends React.Component {
       <Animated.View style={customStyles.bgColorRipple}
         renderToHardwareTextureAndroid />
 
+      <View style={styles.options} >
+        <SoundControl model={this.props.model} />
+      </View>
+
       <View style={styles.logoWrapper} >
         <MyText style={styles.logoText} large logo >
           {'Quento\nClone'}
@@ -120,6 +126,11 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  options: {
+    position: 'absolute',
+    top: consts.STATUSBAR_HEIGHT + 6,
+    right: 6,
   },
   pathDisplayWrapper: {
     position: 'absolute',

@@ -87,7 +87,7 @@ class StateStore extends ReduceStore {
       return goTo(state, 'ViewPlayGame');
     }
     else if (action.type === 'selectTile') {
-      if (state.getIn('config', 'soundOn')) {
+      if (state.getIn(['config', 'soundOn'])) {
         selectTileSound.play();
       }
 
@@ -101,6 +101,14 @@ class StateStore extends ReduceStore {
     else if (action.type === 'winTheGame') {
       return state
       .set('backgroundColor', getBackgroundColor());
+    }
+    else if (action.type === 'turnSoundOff') {
+      return state
+      .setIn(['config', 'soundOn'], false);
+    }
+    else if (action.type === 'turnSoundOn') {
+      return state
+      .setIn(['config', 'soundOn'], true);
     }
     else {
       return state;

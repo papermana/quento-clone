@@ -22,6 +22,8 @@ const actionCreators = {};
   'deselectTile',
   'completeChallenge',
   'winTheGame',
+  'turnSoundOn',
+  'turnSoundOff',
 ]
 .forEach(string => createAction(string));
 
