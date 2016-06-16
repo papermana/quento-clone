@@ -5,7 +5,6 @@ const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
 const actionCreators = require('@src/actionCreators');
 const utils = require('@stores/boardStoreUtils');
-const getActiveGoal = require('@utils/getActiveGoal');
 
 
 /*
