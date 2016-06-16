@@ -14,7 +14,6 @@ class AppUI extends React.Component {
     super(props);
 
     this.state = {
-      hasAppeared: false,
       containerOpacity: new Animated.Value(0),
     };
   }
@@ -30,19 +29,11 @@ class AppUI extends React.Component {
         return false;
       }
     });
-  }
 
-  componentWillUpdate(nextProps, nextState) {
-    if (!nextState.hasAppeared) {
-      Animated.timing(nextState.containerOpacity, {
-        toValue: 1,
-        duration: 200,
-      }).start(() => {
-        this.setState({
-          hasAppeared: true,
-        });
-      });
-    }
+    Animated.timing(this.state.containerOpacity, {
+      toValue: 1,
+      duration: 200,
+    }).start();
   }
 
   render() {

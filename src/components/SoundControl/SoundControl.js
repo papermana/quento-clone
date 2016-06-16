@@ -16,21 +16,19 @@ function SoundControl(props) {
 
   return <TouchableHighlight
     underlayColor={'rgba(0,0,0,0.1)'}
-    onPress={this.pressFunc.bind(this)} >
+    onPress={() => {
+      if (this.props.model.state.getIn(['config', 'soundOn'])) {
+        actionCreators.turnSoundOff();
+      }
+      else {
+        actionCreators.turnSoundOn();
+      }
+    }} >
     <View>
       <Image source={source} style={styles.image} />
     </View>
   </TouchableHighlight>;
 }
-
-SoundControl.pressFunc = function pressFunc() {
-  if (this.props.model.state.getIn(['config', 'soundOn'])) {
-    actionCreators.turnSoundOff();
-  }
-  else {
-    actionCreators.turnSoundOn();
-  }
-};
 
 SoundControl.propTypes = {
   model: consts.PROPTYPES.MODEL.isRequired,
