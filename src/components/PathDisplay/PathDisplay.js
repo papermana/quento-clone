@@ -11,9 +11,7 @@ const MyText = require('@components/MyText');
 const utils = require('@stores/boardStoreUtils');
 
 
-const _config = {
-  defaultVerticalOffset: -200,
-};
+const DEFAULT_VERTICAL_OFFSET = -200;
 
 class PathDisplay extends React.Component {
   constructor(props) {
@@ -24,7 +22,7 @@ class PathDisplay extends React.Component {
       lastOperator: undefined,
       sum: undefined,
       isShown: false,
-      translateValue: new Animated.Value(_config.defaultVerticalOffset),
+      translateValue: new Animated.Value(DEFAULT_VERTICAL_OFFSET),
     };
   }
 
@@ -80,7 +78,7 @@ class PathDisplay extends React.Component {
 
   hideAnimation() {
     Animated.timing(this.state.translateValue, {
-      toValue: _config.defaultVerticalOffset,
+      toValue: DEFAULT_VERTICAL_OFFSET,
       duration: 300,
     }).start();
   }

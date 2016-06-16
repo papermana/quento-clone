@@ -9,34 +9,28 @@ const consts = require('@src/constants');
 const actionCreators = require('@src/actionCreators');
 
 
-class SoundControl extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function SoundControl(props) {
+  const source = props.model.state.getIn(['config', 'soundOn'])
+    ? require('./ic_volume_up.png')
+    : require('./ic_volume_off.png');
 
-  pressFunc() {
-    if (this.props.model.state.getIn(['config', 'soundOn'])) {
-      actionCreators.turnSoundOff();
-    }
-    else {
-      actionCreators.turnSoundOn();
-    }
-  }
-
-  render() {
-    const source = this.props.model.state.getIn(['config', 'soundOn'])
-      ? require('./ic_volume_up.png')
-      : require('./ic_volume_off.png');
-
-    return <TouchableHighlight
-      underlayColor={'rgba(0,0,0,0.1)'}
-      onPress={this.pressFunc.bind(this)} >
-      <View>
-        <Image source={source} style={styles.image} />
-      </View>
-    </TouchableHighlight>;
-  }
+  return <TouchableHighlight
+    underlayColor={'rgba(0,0,0,0.1)'}
+    onPress={this.pressFunc.bind(this)} >
+    <View>
+      <Image source={source} style={styles.image} />
+    </View>
+  </TouchableHighlight>;
 }
+
+SoundControl.pressFunc = function pressFunc() {
+  if (this.props.model.state.getIn(['config', 'soundOn'])) {
+    actionCreators.turnSoundOff();
+  }
+  else {
+    actionCreators.turnSoundOn();
+  }
+};
 
 SoundControl.propTypes = {
   model: consts.PROPTYPES.MODEL.isRequired,

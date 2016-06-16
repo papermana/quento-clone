@@ -6,23 +6,17 @@ const {
 const consts = require('@src/constants');
 
 
-class MyText extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function MyText(props) {
+  const size = (props.standard && 'standard') ||
+    (props.medium && 'medium') ||
+    (props.xmedium && 'xmedium') ||
+    (props.large && 'large') ||
+    (props.xlarge && 'xlarge');
+  const logo = props.logo && styles['logo' + size];
 
-  render() {
-    const size = (this.props.standard && 'standard') ||
-      (this.props.medium && 'medium') ||
-      (this.props.xmedium && 'xmedium') ||
-      (this.props.large && 'large') ||
-      (this.props.xlarge && 'xlarge');
-    const logo = this.props.logo && styles['logo' + size];
-
-    return <Text style={[styles.myText, styles[size], logo, this.props.style]} >
-      {this.props.children}
-    </Text>;
-  }
+  return <Text style={[styles.myText, styles[size], logo, props.style]} >
+    {props.children}
+  </Text>;
 }
 
 MyText.propTypes = {
@@ -81,7 +75,7 @@ const styles = StyleSheet.create({
   //  Logos have lineHeight equal to 11/12 of fontSize, and vertical padding to offset that:
   logolarge: {
     lineHeight: 44,
-    paddingBottom: 6,
+    paddingBottom: 4,
   },
   logoxlarge: {
     lineHeight: 66,

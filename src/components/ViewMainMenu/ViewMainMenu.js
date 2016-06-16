@@ -9,31 +9,24 @@ const actionCreators = require('@src/actionCreators');
 const MyText = require('@components/MyText');
 
 
-// function ViewMainMenu(props) {
-class ViewMainMenu extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
-      <View style={styles.logoWrapper} >
-        <MyText xlarge logo style={styles.logoText} >
-          {'Quento\nClone'}
+function ViewMainMenu(props) {
+  return <View style={[consts.STYLES.SCENE_CONTAINER, styles.container]} >
+    <View style={styles.logoWrapper} >
+      <MyText xlarge logo style={styles.logoText} >
+        {'Quento\nClone'}
+      </MyText>
+    </View>
+    <View style={styles.spacing} />
+    <TouchableOpacity style={styles.playButton}
+      activeOpacity={0.5}
+      onPress={() => actionCreators.playTheGame()} >
+      <View>
+        <MyText large style={styles.playText} >
+          Press to play
         </MyText>
       </View>
-      <View style={styles.spacing} />
-      <TouchableOpacity style={styles.playButton}
-        activeOpacity={0.5}
-        onPress={() => actionCreators.playTheGame()} >
-        <View>
-          <MyText large style={styles.playText} >
-            Press to play
-          </MyText>
-        </View>
-      </TouchableOpacity>
-    </View>;
-  }
+    </TouchableOpacity>
+  </View>;
 }
 
 

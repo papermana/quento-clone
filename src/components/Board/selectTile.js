@@ -1,3 +1,5 @@
+//  TO DO: add tests
+
 const actionCreators = require('@src/actionCreators');
 const utils = require('@stores/boardStoreUtils');
 const getActiveGoal = require('@utils/getActiveGoal');

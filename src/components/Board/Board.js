@@ -40,6 +40,7 @@ class Board extends React.Component {
 
         this.touch = undefined;
       },
+      //  For testing:
       // onResponderGrant: () => actionCreators.winTheGame(),
     };
   }
@@ -69,10 +70,6 @@ class Board extends React.Component {
 
     const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
     const path = this.props.model.board.get('selectedPath');
-
-    // if (this.swipe && path.size === 0) {
-    //   return;
-    // }
 
     if (!this.touch) {
       this.touch = {

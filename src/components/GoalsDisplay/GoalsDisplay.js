@@ -3,18 +3,11 @@ const {
   Animated,
   Image,
   StyleSheet,
-  Text,
   View,
 } = require('react-native');
 const consts = require('@src/constants');
-const actionCreators = require('@src/actionCreators');
 const getActiveGoal = require('@utils/getActiveGoal');
 const MyText = require('@components/MyText');
-
-
-function PreStar(props) {
-  return <View style={styles.preStar} />;
-}
 
 
 class Star extends React.Component {
@@ -75,7 +68,7 @@ class Star extends React.Component {
           source={require('./ic_star_white.png')} />;
       }
       else {
-        return <PreStar />;
+        return <View style={styles.preStar} />;
       }
     })();
 
@@ -98,20 +91,14 @@ Star.propTypes = {
 };
 
 
-class StarsWrapper extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function StarsWrapper(props) {
+  const stars = props.model.board
+  .getIn(['currentBoard', 'challenges', props.challengeId, 'solutions'])
+  .map((solution, key) => <Star key={key} solution={solution} />);
 
-  render() {
-    const stars = this.props.model.board
-    .getIn(['currentBoard', 'challenges', this.props.challengeId, 'solutions'])
-    .map((solution, key) => <Star key={key} solution={solution} />);
-
-    return <View style={styles.starsWrapper} >
-      {stars}
-    </View>;
-  }
+  return <View style={styles.starsWrapper} >
+    {stars}
+  </View>;
 }
 
 StarsWrapper.propTypes = {
@@ -187,19 +174,13 @@ Goal.propTypes = {
 };
 
 
-class GoalsDisplay extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+function GoalsDisplay(props) {
+  const goals = props.model.board.getIn(['currentBoard', 'challenges'])
+  .map((value, key) => <Goal key={key} challengeId={key} model={props.model} />);
 
-  render() {
-    const goals = this.props.model.board.getIn(['currentBoard', 'challenges'])
-    .map((value, key) => <Goal key={key} challengeId={key} model={this.props.model} />);
-
-    return <View style={styles.goalWrapper} >
-      {goals}
-    </View>;
-  }
+  return <View style={styles.goalWrapper} >
+    {goals}
+  </View>;
 }
 
 GoalsDisplay.propTypes = {
@@ -215,12 +196,6 @@ const styles = StyleSheet.create({
   goal: {
     width: 100,
     alignItems: 'center',
-  },
-  textSumWrapper: {
-    // height: 40,
-  },
-  textLengthWrapper: {
-    // height: 20,
   },
   starsWrapper: {
     flexDirection: 'row',
