@@ -8,9 +8,12 @@ const Immutable = require('immutable');
 const Dispatcher = require('@src/dispatcher');
 const routes = require('@src/routes');
 const getBackgroundColorFactory = require('@utils/getBackgroundColor');
+const Sound = require('react-native-sound');
 
 
 const getBackgroundColor = getBackgroundColorFactory();
+
+const selectTileSound = new Sound('select_tile_sound.ogg', Sound.MAIN_BUNDLE);
 
 function goBack(state) {
   const view = state.get('navStack').pop().last();
@@ -61,6 +64,9 @@ class StateStore extends ReduceStore {
       nextState: undefined,
       goingBack: undefined,
       backgroundColor: getBackgroundColor(),
+      config: {
+        soundOn: true,
+      },
       ready: true,
     });
 
@@ -79,6 +85,13 @@ class StateStore extends ReduceStore {
     }
     else if (action.type === 'playTheGame') {
       return goTo(state, 'ViewPlayGame');
+    }
+    else if (action.type === 'selectTile') {
+      if (state.getIn('config', 'soundOn')) {
+        selectTileSound.play();
+      }
+
+      return state;
     }
     else if (action.type === 'completeChallenge') {
       Vibration.vibrate([0, 15]);
