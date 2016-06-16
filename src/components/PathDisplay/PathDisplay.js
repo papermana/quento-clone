@@ -105,7 +105,7 @@ class PathDisplay extends React.Component {
     return <Animated.View style={[styles.wrapper, customStyles.wrapper]} >
       <View style={[styles.container, customStyles.container, styles.containerShadow]} />
       <View style={[styles.container, customStyles.container]} >
-        <MyText style={styles.text} xmedium >
+        <MyText style={styles.text} medium >
           {this.state.displayText}
           {
             this.state.lastOperator &&
@@ -131,7 +131,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     width: 250,
-    height: 56,
+    height: 30 + 16,
     marginTop: 16,
     paddingHorizontal: 16,
     justifyContent: 'center',

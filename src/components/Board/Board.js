@@ -1,6 +1,7 @@
 const React = require('react');
 const {
   StyleSheet,
+  Vibration,
   View,
 } = require('react-native');
 const consts = require('@src/constants');
@@ -18,7 +19,9 @@ class Board extends React.Component {
       y: undefined,
     };
 
-    this.swipe = undefined;
+    this.touch = undefined;
+
+    this.doOnRelease = [];
 
     this.responders = {
       onStartShouldSetResponder: () => true,
@@ -28,7 +31,14 @@ class Board extends React.Component {
       onResponderGrant: this.onTouchFunc.bind(this),
       onResponderMove: this.onTouchFunc.bind(this),
       onResponderRelease: () => {
-        this.swipe = undefined;
+        //  If it's a tap and `selectTile` decided it needed to do something on release (like deselect just one tile, for instance), do it now:
+        if (this.doOnRelease.length > 0) {
+          this.doOnRelease.forEach(callback => callback());
+
+          this.doOnRelease = [];
+        }
+
+        this.touch = undefined;
       },
       // onResponderGrant: () => actionCreators.winTheGame(),
     };
@@ -53,18 +63,51 @@ class Board extends React.Component {
     const X = e.nativeEvent.pageX - this.position.x - consts.BOARD_PADDING;
     const Y = e.nativeEvent.pageY - this.position.y - consts.BOARD_PADDING;
     const id = Math.floor(Y / 100) * 3 + Math.floor(X / 100);
-    // const path = this.props.model.board.get('selectedPath');
+    const path = this.props.model.board.get('selectedPath');
 
     // if (this.swipe && path.size === 0) {
     //   return;
     // }
 
-    if (!this.swipe || this.swipe.lastId !== id) {
-      this.swipe = {
+    if (!this.touch) {
+      this.touch = {
         lastId: id,
       };
 
-      selectTile(this.props.model.board, id);
+      if (path.size !== 0) {
+        this.setLongPress();
+      }
+
+      selectTile(this.props.model.board, id, this.touch, doOnRelease.bind(this));
+    }
+    else if (this.touch.lastId !== id) {
+      this.touch = {
+        lastId: id,
+        swipe: true,
+      };
+
+      selectTile(this.props.model.board, id, this.touch, doOnRelease.bind(this));
+    }
+
+    function doOnRelease(callback) {
+      this.doOnRelease.push(callback);
+    }
+  }
+
+  setLongPress() {
+    if (this._setLongPress) {
+      clearTimeout(this._setLongPress);
+    }
+
+    this._setLongPress = setTimeout(this.onLongPressFunc.bind(this), 750);
+  }
+
+  onLongPressFunc() {
+    //  Deselect everything on long press:
+    if (this.touch && !this.touch.swipe) {
+      Vibration.vibrate([0, 10, 25]);
+
+      actionCreators.deselectTile(0);
     }
   }
 

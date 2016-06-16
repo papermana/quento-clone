@@ -63,8 +63,13 @@ class BoardStore extends ReduceStore {
       .set('selectedPath', state.get('selectedPath').push(action.data));
     }
     else if (action.type === 'deselectTile') {
-      return state
-      .set('selectedPath', state.get('selectedPath').setSize(action.data));
+      if (state.get('selectedPath').size > action.data) {
+        return state
+        .set('selectedPath', state.get('selectedPath').setSize(action.data));
+      }
+      else {
+        return state;
+      }
     }
     else if (action.type === 'completeChallenge') {
       state = state
