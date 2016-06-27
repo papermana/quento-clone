@@ -20,7 +20,7 @@
     "babel-polyfill": "^6.9.1",
     "babel-preset-es2015": "^6.9.0",
     "babel-preset-react": "^6.5.0",
-    "eslint": "^2.11.1",
+    "eslint": "^2.12.0",
     "eslint-plugin-jasmine": "^1.8.1",
     "eslint-plugin-react": "^5.1.1",
     "jest-cli": "^12.1.1"
