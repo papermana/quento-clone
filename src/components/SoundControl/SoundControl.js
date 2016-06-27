@@ -17,7 +17,7 @@ function SoundControl(props) {
   return <TouchableHighlight
     underlayColor={'rgba(0,0,0,0.1)'}
     onPress={() => {
-      if (this.props.model.state.getIn(['config', 'soundOn'])) {
+      if (props.model.state.getIn(['config', 'soundOn'])) {
         actionCreators.turnSoundOff();
       }
       else {
