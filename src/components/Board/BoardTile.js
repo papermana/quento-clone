@@ -21,16 +21,16 @@ class BoardTile extends React.Component {
       isHighlighted: false,
       highlightColor: undefined,
       rotationValue: new Animated.Value(0),
-      currentContent: this.props.children,
+      currentContent: this.props.content,
       nextContent: undefined,
     };
   }
 
   componentWillReceiveProps(nextProps) {
     //  Because sometimes the content won't change between different board layouts, this will only happen sometimes on "victory", but not in every case:
-    if (!this.state.nextContent && nextProps.children !== this.props.children) {
+    if (!this.state.nextContent && nextProps.content !== this.props.content) {
       this.setState({
-        nextContent: nextProps.children,
+        nextContent: nextProps.content,
       });
     }
 
@@ -47,10 +47,6 @@ class BoardTile extends React.Component {
         isHighlighted: false,
       });
     }
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
-    return (this.props.model.board.get('selectedPath') !== nextProps.model.board.get('selectedPath')) || (this.props.children !== nextProps.children);
   }
 
   getHighlightColor(id) {
@@ -136,7 +132,7 @@ class BoardTile extends React.Component {
 }
 
 BoardTile.propTypes = {
-  children: React.PropTypes.oneOfType([
+  content: React.PropTypes.oneOfType([
     React.PropTypes.number,
     React.PropTypes.string,
   ]).isRequired,

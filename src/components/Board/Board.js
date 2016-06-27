@@ -126,9 +126,8 @@ class Board extends React.Component {
       return <BoardTile key={key}
         ref={'tile' + key}
         tileId={key}
-        model={this.props.model} >
-        {value}
-      </BoardTile>;
+        model={this.props.model}
+        content={value} />;
     });
 
     return <View style={styles.board} ref="boardView"
